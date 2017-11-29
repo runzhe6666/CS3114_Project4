@@ -13,7 +13,6 @@ public class Database {
     private byte[] data;
     private int capacity;
     private int size;
-    private int writeIndex;
 
     /**
      * Initializes the database with the provided size.
@@ -23,7 +22,6 @@ public class Database {
      */
     public Database(int initialSize) {
         data = new byte[initialSize];
-        writeIndex = 0;
         size = 0;
         capacity = initialSize;
     }
@@ -34,14 +32,26 @@ public class Database {
      * @return The position that the value was placed in the database.
      */
     public int addValue(String value) {
-        int maxStringSize = 0;
+        int maxStringSize = 65536;
         byte[] valArray = value.getBytes();
         if (valArray.length > maxStringSize) {
             return -1;
         }
-        byte[] record = new byte[10 + valArray.length];
-        record[0] = 1;
-        return 0;
+        //put records into a new array with double capacity
+        if (size + valArray.length > capacity){ 
+        	byte[] newData = new byte[capacity * 2];
+        	for (int i = 0; i < size; i++){
+        		newData[i] = data[i];
+        	}
+        	data = newData;
+        	capacity *= 2;
+        }
+        
+        byte[] record = new byte[3 + valArray.length];
+        record[0] = 1; //set record to active, flag = 1
+        int recordPosition = size;
+        size += record.length;
+        return recordPosition ;
     }
 
     /**
@@ -54,13 +64,17 @@ public class Database {
      * @return The record at the position.
      */
     public String getValue(int position) {
-        ByteBuffer buffer = ByteBuffer.wrap(data);
-        int length = buffer.getInt(position + 1);
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            result.append(buffer.getChar(position + 2 + i));
+    	int len = ((data[position+ 1] & 0xff) << 8) | (data[position + 2] & 0xff);
+    	//put representing bytes into a new bytes array 
+        byte[] strArray = new byte[len];
+        int startIndex = 0;
+        for (int i = position; i < len; i++){
+        	strArray[startIndex] = data[i];
+        	startIndex++;
         }
-        return result.toString();
+        //convert bytes array into string
+        String value = new String(strArray);
+        return value;
     }
 
     /**
@@ -73,4 +87,6 @@ public class Database {
     public void remove(int position) {
         data[position] = 0;
     }
+    
+
 }
