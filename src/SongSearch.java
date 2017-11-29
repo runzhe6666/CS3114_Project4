@@ -64,7 +64,8 @@ public class SongSearch {
 	}
 
 	public void insert(String artist, String song){
-			Record myRecord = new Record(1, len, str)
+			Record myRecord = new Record(1, len, str);
+			
 			
 		}
 
