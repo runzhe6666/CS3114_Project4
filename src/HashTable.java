@@ -1,19 +1,19 @@
 /**
- * A hashtable that operates on pairs of String keys and integer values. 
- * Sorts elements using the key.
+ * A hash table that operates on pairs of String keys and integer values. Sorts
+ * elements using the key.
  * 
  * @author Samuel Turner <samt5>
  * @version 2017.11.22
  *
  */
 public class HashTable {
-    private KVPair[] table;
+    private SIPair[] table;
     private int capacity;
     private int numElements;
 
     /**
-     * Instantiates the hash table with the provided capacity. 
-     * Pre: initialCapacity is greater than 0.
+     * Instantiates the hash table with the provided capacity. Pre:
+     * initialCapacity is greater than 0.
      * 
      * @param initialCapacity
      *            The capacity that the table will be initialized with.
@@ -21,7 +21,7 @@ public class HashTable {
     public HashTable(int initialCapacity) {
         capacity = initialCapacity;
         numElements = 0;
-        table = new KVPair[capacity];
+        table = new SIPair[capacity];
     }
 
     /**
@@ -34,10 +34,11 @@ public class HashTable {
      *            The position in the database.
      */
     public void add(String value, int position) {
-        if ((numElements + 1) / 2 == capacity / 2) {
+        if (numElements + 1 > capacity / 2) {
             expandCapacity();
         }
-        KVPair newEntry = new KVPair(value, position);
+        SIPair newEntry = new SIPair(value, position);
+        numElements++;
         addToArray(newEntry, table, capacity);
     }
 
@@ -51,11 +52,11 @@ public class HashTable {
     public int remove(String value) {
         int index = findIndex(value);
         int handle = -1;
-        if (index == -1) {
-            return handle;
+        if (index != -1) {
+            handle = table[index].getValue();
+            table[index] = new Tombstone();
+            numElements--;
         }
-        handle = table[index].getValue();
-        table[index] = new Tombstone();
         return handle;
     }
 
@@ -111,18 +112,20 @@ public class HashTable {
      */
     private boolean expandCapacity() {
         int newCapacity = 2 * capacity;
-        KVPair[] newTable = new KVPair[newCapacity];
+        SIPair[] newTable = new SIPair[newCapacity];
         for (int i = 0; i < capacity; i++) {
-            if (table[i] != null) {
+            if (table[i] != null && !(table[i] instanceof Tombstone)) {
                 addToArray(table[i], newTable, newCapacity);
             }
         }
+        capacity = newCapacity;
+        table = newTable;
         return true;
     }
 
     /**
-     * Adds the provided KVPair into the provided array. 
-     * Pre: The array is large enough for the element to be added.
+     * Adds the provided KVPair into the provided array. Pre: The array is large
+     * enough for the element to be added.
      * 
      * @param newEntry
      *            The KVPair to add.
@@ -131,11 +134,12 @@ public class HashTable {
      * @param size
      *            The size of the array.
      */
-    private void addToArray(KVPair newEntry, KVPair[] array, int size) {
+    private void addToArray(SIPair newEntry, SIPair[] array, int size) {
         int target = h(newEntry.getKey(), size);
         int i = 0;
         // If the position is available, insert it there.
-        while (array[target + (i * i)] != null) {
+        while (array[(target + (i * i)) % size] != null
+                && !(array[(target + (i * i)) % size] instanceof Tombstone)) {
             i++;
         }
         array[(target + (i * i)) % size] = newEntry;
@@ -152,15 +156,33 @@ public class HashTable {
         int i = 0;
         int target = h(value, capacity);
         while (i < capacity) {
-            if (table[target + (i * i)] == null
-                    || table[target + (i * i)] instanceof Tombstone) {
+            if (table[(target + (i * i)) % capacity] == null) {
                 break;
             }
-            if (table[target + (i * i)].getKey().compareTo(value) == 0) {
-                return target + (i * i);
+            if (table[(target + (i * i)) % capacity].getKey()
+                    .compareTo(value) == 0) {
+                return (target + (i * i)) % capacity;
             }
             i++;
         }
         return -1;
+    }
+
+    /**
+     * Gets the capacity of the hash table.
+     * 
+     * @return The capacity of the table.
+     */
+    public int getCapacity() {
+        return capacity;
+    }
+
+    /**
+     * Gets the number of elements in the hash table.
+     * 
+     * @return The number of elements in the table.
+     */
+    public int getNumElements() {
+        return numElements;
     }
 }

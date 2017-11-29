@@ -10,16 +10,16 @@
  * @param <V>
  *            The type that the value should be.
  */
-public class KVPair {
-    private String key;
-    private int value;
+public class KVPair<K extends Comparable<K>, V> {
+    private K key;
+    private V value;
 
     /**
      * Initializes this KVPair.
      * @param initKey The initial value of the key.
      * @param initVal The initial value of the value.
      */
-    public KVPair(String initKey, int initVal) {
+    public KVPair(K initKey, V initVal) {
         setKey(initKey);
         setValue(initVal);
     }
@@ -28,7 +28,7 @@ public class KVPair {
      * Gets the stored key.
      * @return the key
      */
-    public String getKey() {
+    public K getKey() {
         return key;
     }
 
@@ -37,7 +37,7 @@ public class KVPair {
      * @param key
      *            the key to set
      */
-    public void setKey(String key) {
+    public void setKey(K key) {
         this.key = key;
     }
 
@@ -45,7 +45,7 @@ public class KVPair {
      * Gets the stored value.
      * @return the value
      */
-    public int getValue() {
+    public V getValue() {
         return value;
     }
 
@@ -54,7 +54,7 @@ public class KVPair {
      * @param value
      *            the value to set
      */
-    public void setValue(int value) {
+    public void setValue(V value) {
         this.value = value;
     }
 }

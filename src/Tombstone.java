@@ -6,7 +6,7 @@
  * @version 2017.11.22
  *
  */
-public class Tombstone extends KVPair {
+public class Tombstone extends SIPair {
     public Tombstone() {
         super("", -1);
     }
