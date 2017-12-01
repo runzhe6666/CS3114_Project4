@@ -19,11 +19,11 @@ public class HashTableTest extends student.TestCase {
         table1 = new HashTable(10);
         table2 = new HashTable(6);
         p1 = new SIPair("a", 10);
-        p2 = new SIPair("b", 15);
-        p3 = new SIPair("c", 0);
-        p4 = new SIPair("d", 23);
-        p5 = new SIPair("e", 4);
-        p6 = new SIPair("f", 40);
+        p2 = new SIPair("e", 15);
+        p3 = new SIPair("i", 0);
+        p4 = new SIPair("o", 23);
+        p5 = new SIPair("u", 4);
+        p6 = new SIPair("y", 40);
         p7 = new SIPair("g", 42);
     }
 
@@ -74,7 +74,14 @@ public class HashTableTest extends student.TestCase {
         assertEquals(p1.getValue().intValue(), table1.getHandle(p1.getKey()));
         assertEquals(p2.getValue().intValue(), table1.getHandle(p2.getKey()));
         assertEquals(p3.getValue().intValue(), table1.getHandle(p3.getKey()));
+    }
+    
+    public void testRemove() {
+        table1.add(p1.getKey(), p1.getValue());
+        table1.add(p2.getKey(), p2.getValue());
+        table1.add(p3.getKey(), p3.getValue());
         
+        assertEquals(p1.getValue().intValue(), table1.remove(p1.getKey()));
     }
 
     /**
