@@ -155,10 +155,7 @@ public class HashTable {
     private int findIndex(String value) {
         int i = 0;
         int target = h(value, capacity);
-        while (i < capacity) {
-            if (table[(target + (i * i)) % capacity] == null) {
-                break;
-            }
+        while (table[(target + (i * i)) % capacity] != null) {
             if (table[(target + (i * i)) % capacity].getKey()
                     .compareTo(value) == 0) {
                 return (target + (i * i)) % capacity;

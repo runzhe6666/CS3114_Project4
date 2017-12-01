@@ -1,7 +1,8 @@
 /**
+ * Tests the HashTable class in its entirety.
  * 
  * @author Samuel Turner <samt5>
- * @version 2017.
+ * @version 2017.12.1
  * 
  */
 public class HashTableTest extends student.TestCase {
@@ -15,6 +16,9 @@ public class HashTableTest extends student.TestCase {
     private SIPair p6;
     private SIPair p7;
 
+    /**
+     * Initializes the testing environment with two tables and multiple SIPairs.
+     */
     public void setUp() {
         table1 = new HashTable(10);
         table2 = new HashTable(6);
@@ -65,39 +69,67 @@ public class HashTableTest extends student.TestCase {
      * Tests the add function when there are multiple collisions and removals.
      */
     public void testAdd2() {
-        table1.add(p1.getKey(), p1.getValue());
+        table2.add(p1.getKey(), p1.getValue());
         p2.setKey(genCollision('a', 10, 1));
         p3.setKey(genCollision('a', 10, 2));
-        table1.add(p2.getKey(), p2.getValue());
-        table1.add(p3.getKey(), p3.getValue());
+        table2.add(p2.getKey(), p2.getValue());
+        table2.add(p3.getKey(), p3.getValue());
 
-        assertEquals(p1.getValue().intValue(), table1.getHandle(p1.getKey()));
-        assertEquals(p2.getValue().intValue(), table1.getHandle(p2.getKey()));
-        assertEquals(p3.getValue().intValue(), table1.getHandle(p3.getKey()));
+        assertEquals(p1.getValue().intValue(), table2.getHandle(p1.getKey()));
+        assertEquals(p2.getValue().intValue(), table2.getHandle(p2.getKey()));
+        assertEquals(p3.getValue().intValue(), table2.getHandle(p3.getKey()));
+
+        assertEquals(p1.getValue().intValue(), table2.remove(p1.getKey()));
+        table2.add(p4.getKey(), p4.getValue());
+        table2.add(p5.getKey(), p5.getValue());
+        assertEquals(4, table2.getNumElements());
+        assertEquals(12, table2.getCapacity());
     }
-    
+
+    /**
+     * Tests the edge cases of remove.
+     */
     public void testRemove() {
         table1.add(p1.getKey(), p1.getValue());
         table1.add(p2.getKey(), p2.getValue());
         table1.add(p3.getKey(), p3.getValue());
-        
+
         assertEquals(p1.getValue().intValue(), table1.remove(p1.getKey()));
         assertEquals(p2.getValue().intValue(), table1.remove(p2.getKey()));
         assertEquals(p3.getValue().intValue(), table1.remove(p3.getKey()));
         assertEquals(0, table1.getNumElements());
-        
+
         table2.add(p1.getKey(), p1.getValue());
         table2.add(p2.getKey(), p2.getValue());
         table2.add(p3.getKey(), p3.getValue());
         table2.add(p4.getKey(), p4.getValue());
         table2.add(p5.getKey(), p5.getValue());
-        
+
         assertEquals(5, table2.getNumElements());
-        assertEquals(16, table2.getCapacity());
+        assertEquals(12, table2.getCapacity());
         p7.setKey(genCollision('a', 16, 1));
         table2.add(p7.getKey(), p7.getValue());
 
         assertEquals(p1.getValue().intValue(), table2.remove(p1.getKey()));
+        assertEquals(p2.getValue().intValue(), table2.remove(p2.getKey()));
+        assertEquals(-1, table2.remove("Doesn't exist"));
+    }
+
+    /**
+     * Tests the get handle function for correctness under specific cases.
+     */
+    public void testGetHandle() {
+        table1.add(p1.getKey(), p1.getValue());
+        table1.add(p2.getKey(), p2.getValue());
+        table1.add(p3.getKey(), p3.getValue());
+
+        assertEquals(p1.getValue().intValue(), table1.getHandle(p1.getKey()));
+
+        assertEquals(-1, table1.getHandle("Doesn't exist"));
+
+        HashTable testTable = new HashTable(1);
+        testTable.add(p1.getKey(), p1.getValue());
+        assertEquals(-1, table1.getHandle("Doesn't exist"));
     }
 
     /**
