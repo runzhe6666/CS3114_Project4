@@ -33,13 +33,16 @@ public class HashTable {
      * @param position
      *            The position in the database.
      */
-    public void add(String value, int position) {
+    public int add(String value, int position) {
+    	int n = 0; //this tells me if hash table expanded in size
         if (numElements + 1 > capacity / 2) {
             expandCapacity();
+            n = 1;
         }
         SIPair newEntry = new SIPair(value, position);
         numElements++;
         addToArray(newEntry, table, capacity);
+        return n;
     }
 
     /**

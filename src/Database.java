@@ -48,6 +48,7 @@ public class Database {
         	}
         	data = newData;
         	capacity += blockSize;
+        	System.out.println("memory pool expanded in size");
         }
         
         data[size] = 1; //set record to active, flag = 1

@@ -14,12 +14,14 @@ import java.util.Stack;
  */
 public class BST<T extends Comparable<? super T>> {
     private BSTNode<T> root;
+    private int indent;
 
     /**
      * Constructs an empty tree.
      */
     public BST() {
         root = null;
+        indent = 0;
     }
 
     /**
@@ -178,35 +180,16 @@ public class BST<T extends Comparable<? super T>> {
         return node;
     }
     
-    public void inOrderIterPrint() {
-    	//T[] myArray = new T[];
-    	
-		if(isEmpty()){
-			System.out.println("no record found");
-			return;
-		}
- 
-		Stack<BST<T>.BSTNode<T>> s = new Stack<BST<T>.BSTNode<T>>();
-		
-		BST<T>.BSTNode<T> current = root;
- 
-		while(!s.empty() || current!=null){
- 
-			if(current!=null)
-			{
-				s.push(current);
-				current = current.left;
-			}
-			else
-			{
-				BST<T>.BSTNode<T> n = s.pop();
-				System.out.println();
-				String spaces = "";
-				for (int i = 0; i < getDepth(n.getElement(), n.))
-				System.out.println()
-				currentNode=n.right;
-			}
-		}
+    public void inOrderIterPrint(BSTNode<T> rootIn) {
+    	BSTNode<T> currentNode = rootIn;
+    	if (currentNode == null) return;
+    	inOrderIterPrint(currentNode.left);
+    	for (int i = 0; i < indent * 2; i++){
+    		System.out.print(" ");
+    	}
+    	System.out.print(currentNode.getElement());
+    	inOrderIterPrint(currentNode.right);
+    		
 	}
     
     
