@@ -10,6 +10,7 @@
  *            The type that is being put into the Tree. It must implement
  *            Comparable.
  */
+
 public class BST<T extends Comparable<? super T>> {
     private BSTNode<T> root;
 
