@@ -64,17 +64,17 @@ public class SongSearch {
 	}
 
 	public void insert(String artist, String song){
-			Record myRecord = new Record(1, len, str);
+		
 			
 			
-		}
+	}
 
 	public void remove(String in, String name) {
 
 	}
 
 	public void print(String in) {
-
+		
 	}
 
 	public void list(String in, String name) {

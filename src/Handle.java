@@ -6,7 +6,6 @@ public class Handle <T extends Comparable<? super T>>{
 	public Handle(int locIn){
 		location = locIn;
 	}
-	
 	public int getValue(){
 		return location;
 	}
