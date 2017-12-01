@@ -82,6 +82,22 @@ public class HashTableTest extends student.TestCase {
         table1.add(p3.getKey(), p3.getValue());
         
         assertEquals(p1.getValue().intValue(), table1.remove(p1.getKey()));
+        assertEquals(p2.getValue().intValue(), table1.remove(p2.getKey()));
+        assertEquals(p3.getValue().intValue(), table1.remove(p3.getKey()));
+        assertEquals(0, table1.getNumElements());
+        
+        table2.add(p1.getKey(), p1.getValue());
+        table2.add(p2.getKey(), p2.getValue());
+        table2.add(p3.getKey(), p3.getValue());
+        table2.add(p4.getKey(), p4.getValue());
+        table2.add(p5.getKey(), p5.getValue());
+        
+        assertEquals(5, table2.getNumElements());
+        assertEquals(16, table2.getCapacity());
+        p7.setKey(genCollision('a', 16, 1));
+        table2.add(p7.getKey(), p7.getValue());
+
+        assertEquals(p1.getValue().intValue(), table2.remove(p1.getKey()));
     }
 
     /**
