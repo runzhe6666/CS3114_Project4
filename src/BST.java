@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 /**
  * The underlying BST that supports the Rectangle1 program.
  * 
@@ -175,6 +177,40 @@ public class BST<T extends Comparable<? super T>> {
         }
         return node;
     }
+    
+    public void inOrderIterPrint() {
+    	//T[] myArray = new T[];
+    	
+		if(isEmpty()){
+			System.out.println("no record found");
+			return;
+		}
+ 
+		Stack<BST<T>.BSTNode<T>> s = new Stack<BST<T>.BSTNode<T>>();
+		
+		BST<T>.BSTNode<T> current = root;
+ 
+		while(!s.empty() || current!=null){
+ 
+			if(current!=null)
+			{
+				s.push(current);
+				current = current.left;
+			}
+			else
+			{
+				BST<T>.BSTNode<T> n = s.pop();
+				System.out.println();
+				String spaces = "";
+				for (int i = 0; i < getDepth(n.getElement(), n.))
+				System.out.println()
+				currentNode=n.right;
+			}
+		}
+	}
+    
+    
+    
 
     /**
      * Internal method to remove a specified item from a subtree.
