@@ -1,5 +1,5 @@
 
-public class Handler<K extends Comparable<K>, V> {
+public class Handler {
     private Database myDb;
     private HashTable artistHash;
     private HashTable songHash;
