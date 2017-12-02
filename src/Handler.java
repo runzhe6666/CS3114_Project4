@@ -57,6 +57,46 @@ public class Handler<K extends Comparable<K>, V> {
 			total = songHash.getNumElements();
 		}
 
-		return -1;
+		return total;
+	}
+	
+	public boolean delete(String artist, String song){
+		int artistHandle = artistHash.getHandle(artist);
+		int songHandle = songHash.getHandle(song);
+		
+		if (artistHandle == -1){
+			return false;
+		}
+		if (songHandle == -1){
+			return false;
+		}
+		
+		IIPair artistSongPair = new IIPair(artistHandle, songHandle);
+		IIPair songArtistPair = new IIPair(songHandle, artistHandle);
+		//remove from the artistSongTree
+		if(artistSongTree.find(artistSongPair) == null){
+			return false;
+		}else{
+			artistSongTree.remove(artistSongPair);
+		}
+		//remove from the songArtistTree
+		if(songArtistTree.find(songArtistPair) == null){
+			return false;
+		}else{
+			songArtistTree.remove(songArtistPair);
+		}
+		
+		IIPair artistSongPair2 = new IIPair(artistHandle, -1);
+		IIPair songArtistPair2 = new IIPair(songHandle, -1);
+		if (artistSongTree.find(artistSongPair2) == null){ //no more songs for this artist
+			artistHash.remove(artist);
+			myDb.remove(artistHandle);
+		}
+		if (songArtistTree.find(songArtistPair2) == null){ //no more artists for this song
+			songHash.remove(song);
+			myDb.remove(songHandle);
+		}
+		
+		return true;
 	}
 }

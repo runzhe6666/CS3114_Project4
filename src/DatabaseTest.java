@@ -17,8 +17,7 @@ public class DatabaseTest extends student.TestCase{
 		assertEquals(myDb.getCapacity(), 20);
 		
 		//myDb.addValue("Blind Lemon Jefferson");
-		
-		
+
 	}
 	
 	public void testGetValue(){
@@ -33,7 +32,6 @@ public class DatabaseTest extends student.TestCase{
 		myDb.addValue("sam");
 		myDb.remove(0);
 		assertEquals(myDb.getValue(0), "no record exists");
-		
 	}
 	
 	
