@@ -9,6 +9,7 @@ public class HandlerTest extends student.TestCase{
 	
 	public void testInsert(){
 		myHandler.insert("Blind Lemon Jefferson", "Long Lonesome Blues"); //success 
+		
 	}
 	
 	public void testPrint(){
@@ -18,6 +19,5 @@ public class HandlerTest extends student.TestCase{
 		myHandler.insert("Sleepy John Estes", "Long Lonesome Blues");
 		myHandler.insert("Another Bukka White", "Long Lonesome Blues");
 		assertEquals(myHandler.print("artist"), 5);
-
 	}
 }

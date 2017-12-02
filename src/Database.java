@@ -33,12 +33,13 @@ public class Database {
      * @param value The value to add
      * @return The position that the value was placed in the database.
      */
-    public int addValue(String value) {
+    public Handle addValue(String value) {
         int maxStringSize = 65536;
+        Handle myHandle = new Handle(-1);
         byte[] valArray = value.getBytes();
 //        ByteBuffer.wrap(valArray).getInt()
         if (valArray.length > maxStringSize) {
-            return -1;
+            return myHandle;
         }
         //put records into a new array with double capacity
 //        if ((size + valArray.length + 3) > capacity){ 
@@ -69,9 +70,10 @@ public class Database {
         	data[size + 3 + i] = valArray[i];
         }
         
-        int recordPosition = size;
+        myHandle.setValue(size);
+        //int recordPosition = size;
         size = size + 3 + valArray.length;
-        return recordPosition ;
+        return myHandle ;
     }
 
     /**

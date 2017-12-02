@@ -11,6 +11,9 @@ public class Handle implements Comparable<Handle> {
 		return location;
 	}
 	
+	public void setValue(int locIn){
+		location = locIn;
+	}
     @Override
     public int compareTo(Handle other) {
         Integer a = new Integer(getValue());
