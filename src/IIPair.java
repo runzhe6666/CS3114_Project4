@@ -42,16 +42,20 @@ public class IIPair extends KVPair<Integer, Integer> implements Comparable<IIPai
     }
 
     /**
-     * if key and value matches, returns 1
-     * else return 0
+     * Compare this object to the object that is passed in and return the result.
+     * Compares the keys first and if they are the same, compares the values.
+     * Passing in an IIPair with value -1 indicates that it is a searching pair and
+     * thus should not be comparing the values.
      * 
+     * @param o The input IIPair to use.
+     * @return 
      */
 	@Override
 	public int compareTo(IIPair o) {
-		if (o.getKey() == getKey() && o.getValue() == getValue()){
-			return 1;
+		int retVal = getKey().compareTo(o.getKey());
+		if (retVal == 0 && o.getValue() != -1) {
+		    retVal = getValue().compareTo(o.getValue());
 		}
-		
-		return 0;
+		return retVal;
 	}
 }
