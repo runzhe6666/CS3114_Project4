@@ -1,11 +1,11 @@
 
-public class SIPair extends KVPair<String, Integer> {
+public class SIPair extends KVPair<String, Handle> {
     /**
      * Creates the SIPair object with a string key and integer value.
      * @param key The key for this pair.
      * @param value The value for this pair.
      */
-    public SIPair(String key, int value) {
+    public SIPair(String key, Handle value) {
         super(key, value);
     }
     
@@ -29,7 +29,7 @@ public class SIPair extends KVPair<String, Integer> {
      * Gets the value of the pair.
      * @return The pair's value.
      */
-    public Integer getValue() {
+    public Handle getValue() {
         return super.getValue();
     }
 
@@ -37,7 +37,7 @@ public class SIPair extends KVPair<String, Integer> {
      * Sets the value of the pair.
      * @param value The integer value for the pair.
      */
-    public void setValue(int value) {
+    public void setValue(Handle value) {
         super.setValue(value);
     }
 }

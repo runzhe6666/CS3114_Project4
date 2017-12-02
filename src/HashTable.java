@@ -33,7 +33,7 @@ public class HashTable {
      * @param position
      *            The position in the database.
      */
-    public int add(String value, int position) {
+    public int add(String value, Handle position) {
     	int n = 0; //this tells me if hash table expanded in size
         if (numElements + 1 > capacity / 2) {
             expandCapacity();
@@ -52,9 +52,9 @@ public class HashTable {
      *            The value to find.
      * @return The handle in the database.
      */
-    public int remove(String value) {
+    public Handle remove(String value) {
         int index = findIndex(value);
-        int handle = -1;
+        Handle handle = new Handle(-1);
         if (index != -1) {
             handle = table[index].getValue();
             table[index] = new Tombstone();
@@ -71,10 +71,10 @@ public class HashTable {
      *            The value to search for.
      * @return The handle that was found.
      */
-    public int getHandle(String value) {
+    public Handle getHandle(String value) {
         int index = findIndex(value);
         if (index == -1) {
-            return -1;
+            return new Handle(-1);
         }
         return table[index].getValue();
     }
