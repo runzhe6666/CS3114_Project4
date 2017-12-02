@@ -41,18 +41,29 @@ public class Database {
             return -1;
         }
         //put records into a new array with double capacity
-        if ((size + valArray.length + 3) > capacity){ 
-        	byte[] newData = new byte[capacity * 2];
-        	for (int i = 0; i < size; i++){
+//        if ((size + valArray.length + 3) > capacity){ 
+//        	byte[] newData = new byte[capacity * 2];
+//        	for (int i = 0; i < size; i++){
+//        		newData[i] = data[i];
+//        	}
+//        	data = newData;
+//        	capacity += blockSize;
+//        	System.out.println("memory pool expanded in size");
+//        }
+        
+        while ((size + valArray.length + 3) > capacity){
+        	capacity += blockSize;
+        	byte[] newData = new byte[capacity];
+        	for(int i = 0; i < size; i++){
         		newData[i] = data[i];
         	}
         	data = newData;
-        	capacity += blockSize;
         	System.out.println("memory pool expanded in size");
         }
         
         data[size] = 1; //set record to active, flag = 1
-        data[size + 1] = (byte)valArray.length;
+        data[size + 1] = (byte)(valArray.length >> 8);
+        data[size + 2] = (byte)(valArray.length & ((1 << 8) - 1));
         
         for (int i = 0; i < valArray.length; i++){
         	data[size + 3 + i] = valArray[i];
@@ -76,7 +87,7 @@ public class Database {
     	if (data[position] != 1){
     		return "no record exists";
     	}
-    	int len = data[position + 1] | data[position + 2] << 8;
+    	int len = data[position + 1] << 8 | data[position + 2];
     	//put representing bytes into a new bytes array 
         byte[] strArray = new byte[len];
         int startIndex = 0;

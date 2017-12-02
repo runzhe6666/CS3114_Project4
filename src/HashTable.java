@@ -185,4 +185,18 @@ public class HashTable {
     public int getNumElements() {
         return numElements;
     }
+    
+    
+    
+    public String[] getAllElements(){
+    	String[] myStrArray = new String[numElements];
+    	int arrayIndex = 0;
+		for (int i = 0; i < capacity; i++) {
+			if (table[i] != null && !(table[i] instanceof Tombstone)) {
+				myStrArray[arrayIndex] = table[i].getKey();
+				arrayIndex++;
+			}
+		}
+		return myStrArray;
+    } 
 }

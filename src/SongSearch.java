@@ -7,13 +7,13 @@ public class SongSearch {
 	private int blockSize;
 	private int hashSize;
 	private File myFile;
-	private byte[] songs;
-	private byte[] artists;
-
+	private Handler myHandler;
 	public SongSearch(int init_HashSize, int init_BlockSize, File fileIn) {
 		blockSize = init_BlockSize;
-		songs = new byte[blockSize];
-		artists = new byte[blockSize];
+		hashSize = init_HashSize;
+		myFile = fileIn;
+		myHandler = new Handler(blockSize, hashSize);
+		
 		}
 
 	public void parseFile(File file) {
@@ -35,7 +35,11 @@ public class SongSearch {
 			while (command.hasNext()) {
 				// The line starts with insert, so execute that command
 				if (command.next() == "insert") {
-					insert();
+					String artistNSong = command.next();
+					String[] inputArray = artistNSong.split("<SEP>");
+					String artist = inputArray[0];
+					String song = inputArray[1];
+					myHandler.insert(artist, song);
 				}
 				// The line starts with remove, so execute that command
 				else if (command.next() == "remove") {
@@ -55,7 +59,9 @@ public class SongSearch {
 				}
 				// The line starts with print, so execute that command
 				else if (command.next() == "print") {
-					print();
+					String input = command.next();
+					System.out.println(myHandler.print(input));
+					
 				}
 			}
 
@@ -63,29 +69,5 @@ public class SongSearch {
 		in.close();
 	}
 
-	public void insert(String artist, String song){
-		
-			
-			
-	}
-
-	public void remove(String in, String name) {
-
-	}
-
-	public void print(String in) {
-		
-	}
-
-	public void list(String in, String name) {
-
-	}
-
-	public void delete(String artist, String song) {
-
-	}
-
-	public void printTree() {
-		
-	}
+f
 }

@@ -15,7 +15,10 @@ public class DatabaseTest extends student.TestCase{
 //		System.out.println(strLen);
 		assertEquals(myDb.addValue("sam"), strLen + 3);
 		assertEquals(myDb.getCapacity(), 20);
-		//need expand
+		
+		//myDb.addValue("Blind Lemon Jefferson");
+		
+		
 	}
 	
 	public void testGetValue(){
