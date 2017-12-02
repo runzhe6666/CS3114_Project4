@@ -14,7 +14,7 @@ public class Handler {
         songArtistTree = new BST<IIPair>();
     }
 
-    public void insert(String artist, String song) {
+    public boolean insert(String artist, String song) {
         Handle artistHandle = new Handle(-1);
         Handle songHandle = new Handle(-1);
 
@@ -40,9 +40,14 @@ public class Handler {
         IIPair artistSongPair = new IIPair(artistHandle, songHandle);
         IIPair songArtistPair = new IIPair(songHandle, artistHandle);
 
-        artistSongTree.insert(artistSongPair);
-        songArtistTree.insert(songArtistPair);
-
+        if (artistSongTree.find(artistSongPair) == null && songArtistTree.find(songArtistPair) == null){ //not a duplicate
+        	artistSongTree.insert(artistSongPair);
+        	songArtistTree.insert(songArtistPair);
+        }
+        else{
+        	return false;
+        }
+        return true;
     }
 
     public int print(String in) {
@@ -210,5 +215,9 @@ public class Handler {
             i++;
             aHandle = songArtistTree.find(temp, i).getValue();
         }
+    }
+    
+    public void printTree(){
+    	System.out.println(artistSongTree.toString());
     }
 }
