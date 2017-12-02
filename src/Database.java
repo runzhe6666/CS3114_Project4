@@ -85,7 +85,8 @@ public class Database {
      *            The position of the record.
      * @return The record at the position.
      */
-    public String getValue(int position) {
+    public String getValue(Handle handleIn) {
+    	int position = handleIn.getValue();
     	if (data[position] != 1){
     		return "no record exists";
     	}
@@ -109,7 +110,8 @@ public class Database {
      * 
      * @param position The position of the record
      */
-    public void remove(int position) {
+    public void remove(Handle handleIn) {
+    	int position = handleIn.getValue();
         data[position] = 0;
     }
     
