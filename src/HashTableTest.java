@@ -22,13 +22,13 @@ public class HashTableTest extends student.TestCase {
     public void setUp() {
         table1 = new HashTable(10);
         table2 = new HashTable(6);
-        p1 = new SIPair("a", 10);
-        p2 = new SIPair("e", 15);
-        p3 = new SIPair("i", 0);
-        p4 = new SIPair("o", 23);
-        p5 = new SIPair("u", 4);
-        p6 = new SIPair("y", 40);
-        p7 = new SIPair("g", 42);
+        p1 = new SIPair("a", new Handle(10));
+        p2 = new SIPair("e", new Handle(15));
+        p3 = new SIPair("i", new Handle(0));
+        p4 = new SIPair("o", new Handle(23));
+        p5 = new SIPair("u", new Handle(4));
+        p6 = new SIPair("y", new Handle(40));
+        p7 = new SIPair("g", new Handle(42));
     }
 
     /**
@@ -50,19 +50,19 @@ public class HashTableTest extends student.TestCase {
         assertEquals(6, table1.getNumElements());
 
         // Check that the values are all copied correctly.
-        assertEquals(p1.getValue().intValue(), table1.getHandle(p1.getKey()));
-        assertEquals(p2.getValue().intValue(), table1.getHandle(p2.getKey()));
-        assertEquals(p3.getValue().intValue(), table1.getHandle(p3.getKey()));
-        assertEquals(p4.getValue().intValue(), table1.getHandle(p4.getKey()));
-        assertEquals(p5.getValue().intValue(), table1.getHandle(p5.getKey()));
-        assertEquals(p6.getValue().intValue(), table1.getHandle(p6.getKey()));
+        assertEquals(p1.getValue(), table1.getHandle(p1.getKey()));
+        assertEquals(p2.getValue(), table1.getHandle(p2.getKey()));
+        assertEquals(p3.getValue(), table1.getHandle(p3.getKey()));
+        assertEquals(p4.getValue(), table1.getHandle(p4.getKey()));
+        assertEquals(p5.getValue(), table1.getHandle(p5.getKey()));
+        assertEquals(p6.getValue(), table1.getHandle(p6.getKey()));
 
         // Check adding after removal.
-        assertEquals(table1.remove(p1.getKey()), p1.getValue().intValue());
+        assertEquals(table1.remove(p1.getKey()), p1.getValue());
         p7.setKey("a");
         table1.add(p7.getKey(), p7.getValue());
         assertEquals(6, table1.getNumElements());
-        assertEquals(p7.getValue().intValue(), table1.getHandle(p7.getKey()));
+        assertEquals(p7.getValue(), table1.getHandle(p7.getKey()));
     }
 
     /**
@@ -75,11 +75,11 @@ public class HashTableTest extends student.TestCase {
         table2.add(p2.getKey(), p2.getValue());
         table2.add(p3.getKey(), p3.getValue());
 
-        assertEquals(p1.getValue().intValue(), table2.getHandle(p1.getKey()));
-        assertEquals(p2.getValue().intValue(), table2.getHandle(p2.getKey()));
-        assertEquals(p3.getValue().intValue(), table2.getHandle(p3.getKey()));
+        assertEquals(p1.getValue(), table2.getHandle(p1.getKey()));
+        assertEquals(p2.getValue(), table2.getHandle(p2.getKey()));
+        assertEquals(p3.getValue(), table2.getHandle(p3.getKey()));
 
-        assertEquals(p1.getValue().intValue(), table2.remove(p1.getKey()));
+        assertEquals(p1.getValue(), table2.remove(p1.getKey()));
         table2.add(p4.getKey(), p4.getValue());
         table2.add(p5.getKey(), p5.getValue());
         assertEquals(4, table2.getNumElements());
@@ -94,9 +94,9 @@ public class HashTableTest extends student.TestCase {
         table1.add(p2.getKey(), p2.getValue());
         table1.add(p3.getKey(), p3.getValue());
 
-        assertEquals(p1.getValue().intValue(), table1.remove(p1.getKey()));
-        assertEquals(p2.getValue().intValue(), table1.remove(p2.getKey()));
-        assertEquals(p3.getValue().intValue(), table1.remove(p3.getKey()));
+        assertEquals(p1.getValue(), table1.remove(p1.getKey()));
+        assertEquals(p2.getValue(), table1.remove(p2.getKey()));
+        assertEquals(p3.getValue(), table1.remove(p3.getKey()));
         assertEquals(0, table1.getNumElements());
 
         table2.add(p1.getKey(), p1.getValue());
@@ -110,9 +110,10 @@ public class HashTableTest extends student.TestCase {
         p7.setKey(genCollision('a', 16, 1));
         table2.add(p7.getKey(), p7.getValue());
 
-        assertEquals(p1.getValue().intValue(), table2.remove(p1.getKey()));
-        assertEquals(p2.getValue().intValue(), table2.remove(p2.getKey()));
-        assertEquals(-1, table2.remove("Doesn't exist"));
+        assertEquals(p1.getValue(), table2.remove(p1.getKey()));
+        assertEquals(p2.getValue(), table2.remove(p2.getKey()));
+        assertEquals(0,
+                table2.remove("Doesn't exist").compareTo(new Handle(-1)));
     }
 
     /**
@@ -123,13 +124,15 @@ public class HashTableTest extends student.TestCase {
         table1.add(p2.getKey(), p2.getValue());
         table1.add(p3.getKey(), p3.getValue());
 
-        assertEquals(p1.getValue().intValue(), table1.getHandle(p1.getKey()));
+        assertEquals(p1.getValue(), table1.getHandle(p1.getKey()));
 
-        assertEquals(-1, table1.getHandle("Doesn't exist"));
+        assertEquals(0,
+                table1.getHandle("Doesn't exist").compareTo(new Handle(-1)));
 
         HashTable testTable = new HashTable(1);
         testTable.add(p1.getKey(), p1.getValue());
-        assertEquals(-1, table1.getHandle("Doesn't exist"));
+        assertEquals(0,
+                table1.getHandle("Doesn't exist").compareTo(new Handle(-1)));
     }
 
     /**

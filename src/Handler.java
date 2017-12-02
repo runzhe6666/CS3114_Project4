@@ -15,10 +15,10 @@ public class Handler {
     }
 
     public void insert(String artist, String song) {
-        int artistHandle = -1;
-        int songHandle = -1;
+        Handle artistHandle = new Handle(-1);
+        Handle songHandle = new Handle(-1);
 
-        if (artistHash.getHandle(artist) == -1) {
+        if (artistHash.getHandle(artist).getValue() == -1) {
             artistHandle = myDb.addValue(artist);
             if (artistHash.add(artist, artistHandle) == 1) {
                 System.out.println("artist hash table expanded in size");
@@ -27,7 +27,7 @@ public class Handler {
         else {
             artistHandle = artistHash.getHandle(artist);
         }
-        if (songHash.getHandle(song) == -1) {
+        if (songHash.getHandle(song).getValue() == -1) {
             songHandle = myDb.addValue(song);
             if (songHash.add(song, songHandle) == 1) {
                 System.out.println("song has table expanded in size");
@@ -64,13 +64,13 @@ public class Handler {
     }
 
     public boolean delete(String artist, String song) {
-        int artistHandle = artistHash.getHandle(artist);
-        int songHandle = songHash.getHandle(song);
+        Handle artistHandle = artistHash.getHandle(artist);
+        Handle songHandle = songHash.getHandle(song);
 
-        if (artistHandle == -1) {
+        if (artistHandle.getValue() == -1) {
             return false;
         }
-        if (songHandle == -1) {
+        if (songHandle.getValue() == -1) {
             return false;
         }
 
@@ -91,8 +91,8 @@ public class Handler {
             songArtistTree.remove(songArtistPair);
         }
 
-        IIPair artistSongPair2 = new IIPair(artistHandle, -1);
-        IIPair songArtistPair2 = new IIPair(songHandle, -1);
+        IIPair artistSongPair2 = new IIPair(artistHandle, new Handle(-1));
+        IIPair songArtistPair2 = new IIPair(songHandle, new Handle(-1));
         if (artistSongTree.find(artistSongPair2) == null) { // no more songs for
                                                             // this artist
             artistHash.remove(artist);
@@ -115,23 +115,23 @@ public class Handler {
      * @return The artist was removed successfully.
      */
     public boolean removeArtist(String artist) {
-        int handle = artistHash.remove(artist);
-        if (handle < 0) {
+        Handle handle = artistHash.remove(artist);
+        if (handle.getValue() < 0) {
             return false;
         }
         // We are going to assume that the artist exists from here out.
-        IIPair temp = new IIPair(handle, -1);
+        IIPair temp = new IIPair(handle, new Handle(-1));
         IIPair result = artistSongTree.remove(temp);
         while (result != null) {
             temp = new IIPair(result.getValue(), result.getKey());
             result = songArtistTree.remove(temp);
-            temp.setValue(-1);
+            temp.setValue(new Handle(-1));
             temp = songArtistTree.find(temp);
             if (temp == null) {
                 songHash.remove(myDb.getValue(result.getKey()));
                 myDb.remove(result.getKey());
             }
-            temp = new IIPair(handle, -1);
+            temp = new IIPair(handle, new Handle(-1));
             result = artistSongTree.remove(temp);
         }
         myDb.remove(handle);
@@ -146,24 +146,24 @@ public class Handler {
      * @return The song was removed successfully.
      */
     public boolean removeSong(String song) {
-        int handle = songHash.remove(song);
-        if (handle < 0) {
+        Handle handle = songHash.remove(song);
+        if (handle.getValue() < 0) {
             return false;
         }
         // We are going to assume that the artist exists from here out.
-        IIPair temp = new IIPair(handle, -1);
+        IIPair temp = new IIPair(handle, new Handle(-1));
         IIPair result = songArtistTree.remove(temp);
         while (result != null) {
             temp = new IIPair(result.getValue(), result.getKey());
             result = artistSongTree.remove(temp);
-            temp.setValue(-1);
+            temp.setValue(new Handle(-1));
             temp = artistSongTree.find(temp);
             // Remove the song if it is no longer in the song tree.
             if (temp == null) {
                 artistHash.remove(myDb.getValue(result.getKey()));
                 myDb.remove(result.getKey());
             }
-            temp = new IIPair(handle, -1);
+            temp = new IIPair(handle, new Handle(-1));
             result = artistSongTree.remove(temp);
         }
         myDb.remove(handle);
@@ -183,8 +183,8 @@ public class Handler {
         }
         IIPair temp = new IIPair(aHandle, new Handle(-1));
         int i = 0;
-        int sHandle = artistSongTree.find(temp, i).getValue();
-        while (sHandle >= 0) {
+        Handle sHandle = artistSongTree.find(temp, i).getValue();
+        while (sHandle.getValue() >= 0) {
             System.out.println("|" + myDb.getValue(sHandle) + "|");
             i++;
             sHandle = artistSongTree.find(temp, i).getValue();
@@ -204,8 +204,8 @@ public class Handler {
         }
         IIPair temp = new IIPair(sHandle, new Handle(-1));
         int i = 0;
-        int aHandle = songArtistTree.find(temp, i).getValue();
-        while (aHandle >= 0) {
+        Handle aHandle = songArtistTree.find(temp, i).getValue();
+        while (aHandle.getValue() >= 0) {
             System.out.println("|" + myDb.getValue(aHandle) + "|");
             i++;
             aHandle = songArtistTree.find(temp, i).getValue();
