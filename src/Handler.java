@@ -18,6 +18,7 @@ public class Handler {
         Handle artistHandle = new Handle(-1);
         Handle songHandle = new Handle(-1);
 
+        //if artist hash doesn't have artist
         if (artistHash.getHandle(artist).getValue() == -1) {
             artistHandle = myDb.addValue(artist);
             if (artistHash.add(artist, artistHandle) == 1) {
@@ -120,26 +121,45 @@ public class Handler {
      * @return The artist was removed successfully.
      */
     public boolean removeArtist(String artist) {
-        Handle handle = artistHash.remove(artist);
-        if (handle.getValue() < 0) {
-            return false;
-        }
-        // We are going to assume that the artist exists from here out.
-        IIPair temp = new IIPair(handle, new Handle(-1));
-        IIPair result = artistSongTree.remove(temp);
-        while (result != null) {
-            temp = new IIPair(result.getValue(), result.getKey());
-            result = songArtistTree.remove(temp);
-            temp.setValue(new Handle(-1));
-            temp = songArtistTree.find(temp);
-            if (temp == null) {
-                songHash.remove(myDb.getValue(result.getKey()));
-                myDb.remove(result.getKey());
-            }
-            temp = new IIPair(handle, new Handle(-1));
-            result = artistSongTree.remove(temp);
-        }
-        myDb.remove(handle);
+    	//if artist doesn't exist in artist hash
+    	if (artistHash.getHandle(artist).getValue() == -1){
+    		return false;
+    	}
+    	Handle artistHandle = artistHash.getHandle(artist);
+    	
+ //////////////////Zuri's code///////////////////////////////
+    	//remove all artistSongRecord with this artist as key
+    	
+//    	IIPair artistSongPair2 = new IIPair(artistHandle, new Handle(-1));
+//        //IIPair songArtistPair2 = new IIPair(songHandle, new Handle(-1));
+//    	while(artistSongTree.find(artistSongPair2) != null) { // no more songs for
+//             artistSongTree.remove(artistSongTree.find(artistSongPair2));                                     // this artist
+//            //artistHash.remove(artist);
+//            //myDb.remove(artistHandle);
+//        }
+//       
+    	
+    	/////////////////////Sam's code////////////////////////
+//        Handle handle = artistHash.remove(artist);
+//        if (handle.getValue() < 0) {
+//            return false;
+//        }
+//        // We are going to assume that the artist exists from here out.
+//        IIPair temp = new IIPair(handle, new Handle(-1));
+//        IIPair result = artistSongTree.remove(temp); //PROBLEM
+//        while (result != null) {
+//            temp = new IIPair(result.getValue(), result.getKey());
+//            result = songArtistTree.remove(temp);
+//            temp.setValue(new Handle(-1));
+//            temp = songArtistTree.find(temp);
+//            if (temp == null) {
+//                songHash.remove(myDb.getValue(result.getKey()));
+//                myDb.remove(result.getKey());
+//            }
+//            temp = new IIPair(handle, new Handle(-1));
+//            result = artistSongTree.remove(temp);
+//        }
+//        myDb.remove(handle);
         return true;
     }
 
