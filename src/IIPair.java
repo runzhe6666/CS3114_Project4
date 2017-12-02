@@ -1,11 +1,11 @@
 
-public class IIPair extends KVPair<Integer, Integer> implements Comparable<IIPair>{
+public class IIPair extends KVPair<Handle, Handle> implements Comparable<IIPair>{
     /**
      * Creates the SIPair object with a string key and integer value.
      * @param key The key for this pair.
      * @param value The value for this pair.
      */
-    public IIPair(int key, int value) {
+    public IIPair(Handle key, Handle value) {
         super(key, value);
     }
     
@@ -13,7 +13,7 @@ public class IIPair extends KVPair<Integer, Integer> implements Comparable<IIPai
      * Gets the key for this pair.
      * @return The integer key
      */
-    public Integer getKey() {
+    public Handle getKey() {
         return super.getKey();
     }
     
@@ -21,7 +21,7 @@ public class IIPair extends KVPair<Integer, Integer> implements Comparable<IIPai
      * Sets the key for the pair.
      * @param key The integer key for the pair.
      */
-    public void setKey(int key) {
+    public void setKey(Handle key) {
         super.setKey(key);
     }
     
@@ -29,7 +29,7 @@ public class IIPair extends KVPair<Integer, Integer> implements Comparable<IIPai
      * Gets the value of the pair.
      * @return The pair's value.
      */
-    public Integer getValue() {
+    public Handle getValue() {
         return super.getValue();
     }
 
@@ -37,7 +37,7 @@ public class IIPair extends KVPair<Integer, Integer> implements Comparable<IIPai
      * Sets the value of the pair.
      * @param value The integer value for the pair.
      */
-    public void setValue(int value) {
+    public void setValue(Handle value) {
         super.setValue(value);
     }
 
@@ -53,7 +53,7 @@ public class IIPair extends KVPair<Integer, Integer> implements Comparable<IIPai
 	@Override
 	public int compareTo(IIPair o) {
 		int retVal = getKey().compareTo(o.getKey());
-		if (retVal == 0 && o.getValue() != -1) {
+		if (retVal == 0 && o.getValue().getValue() != -1) {
 		    retVal = getValue().compareTo(o.getValue());
 		}
 		return retVal;

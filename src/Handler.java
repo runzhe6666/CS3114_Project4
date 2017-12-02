@@ -177,11 +177,11 @@ public class Handler {
      *            The artist to search for.
      */
     public void listArtist(String artist) {
-        int aHandle = artistHash.getHandle(artist);
-        if (aHandle < 0) {
+        Handle aHandle = artistHash.getHandle(artist);
+        if (aHandle.getValue() < 0) {
             return;
         }
-        IIPair temp = new IIPair(aHandle, -1);
+        IIPair temp = new IIPair(aHandle, new Handle(-1));
         int i = 0;
         int sHandle = artistSongTree.find(temp, i).getValue();
         while (sHandle >= 0) {
@@ -198,11 +198,11 @@ public class Handler {
      *            The song to search for.
      */
     public void listSong(String song) {
-        int sHandle = songHash.getHandle(song);
-        if (sHandle < 0) {
+        Handle sHandle = songHash.getHandle(song);
+        if (sHandle.getValue() < 0) {
             return;
         }
-        IIPair temp = new IIPair(sHandle, -1);
+        IIPair temp = new IIPair(sHandle, new Handle(-1));
         int i = 0;
         int aHandle = songArtistTree.find(temp, i).getValue();
         while (aHandle >= 0) {

@@ -8,6 +8,6 @@
  */
 public class Tombstone extends SIPair {
     public Tombstone() {
-        super("", -1);
+        super("", new Handle(-1));
     }
 }
