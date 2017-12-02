@@ -134,6 +134,17 @@ public class HashTableTest extends student.TestCase {
         assertEquals(0,
                 table1.getHandle("Doesn't exist").compareTo(new Handle(-1)));
     }
+    
+    public void testGetAllElements() {
+        table1.add(p1.getKey(), p1.getValue());
+        table1.add(p2.getKey(), p2.getValue());
+        table1.add(p3.getKey(), p3.getValue());
+        table1.add(p4.getKey(), p4.getValue());
+        table1.remove(p2.getKey());
+        
+        String[] contents = table1.getAllElements();
+        assertEquals(3, contents.length);
+    }
 
     /**
      * Helps with collision testing by generating strings that will collide
