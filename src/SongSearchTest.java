@@ -1,4 +1,6 @@
 import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * 
@@ -18,7 +20,43 @@ public class SongSearchTest extends student.TestCase {
     }
     
     public void testMain() {
+    	String[] mainArray = new String[3];
+    	mainArray[0] = "10";
+    	mainArray[1] = "10";
+    	mainArray[2] = "SyntaxTest.txt";
         SongSearch.main(null);
         assertNotNull(ss1.toString());
     }
+    
+    /**
+     * Tests file parser by running it with a basic test function.
+     * Currently the tests are reviewed by hand since the outputs
+     * are hard to collect properly. This method checks if FileParser's
+     * primary functionality works and doesn't check edge cases.
+     */
+//    public void testParseFile() {
+//        URL url = getClass().getResource("SyntaxTest.txt");
+//        File file = null;
+//        boolean a = true;
+//        try {
+//            if (url != null) {
+//                file = new File(url.toURI());
+//            }
+//        }
+//        catch (URISyntaxException e) {
+//            //The file wasn't found where it was supposed to be.
+//            System.out.println("The file is missing");
+//        }
+//        SongSearch mySongSearch = new SongSearch(10, 10, file);
+//        try {
+//            mySongSearch.parseFile();
+//        }
+//        catch (Exception e) {
+//            a = false;
+//        }
+//        //Ensures that the fileparser ran to completion
+//        assertTrue(a);
+//    }
+//    
+
 }

@@ -46,8 +46,8 @@ public class SongSearch {
             System.out.println("Incorrect number of arguments");
         }
         int hashSize = Integer.parseInt(args[0]);
-        int blockSize = Integer.parseInt(args[0]);
-        File file = new File(args[0]);
+        int blockSize = Integer.parseInt(args[1]);
+        File file = new File(args[2]);
         SongSearch s = new SongSearch(hashSize, blockSize, file);
         s.parseFile();
     }
@@ -78,9 +78,9 @@ public class SongSearch {
     /**
      * Parses the input file and prints the result to standard out.
      */
-    public void parseFile() {
+    public boolean parseFile() {
         if (myFile == null || !myFile.exists()) {
-            return;
+            return false;
         }
         Scanner in = null;
         try {
@@ -88,7 +88,7 @@ public class SongSearch {
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
-            return;
+            return false;
         }
 
         while (in.hasNextLine()) {
@@ -141,6 +141,7 @@ public class SongSearch {
             }
         }
         in.close();
+        return true;
     }
 
 }

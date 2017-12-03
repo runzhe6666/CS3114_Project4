@@ -57,4 +57,8 @@ public class KVPair<K extends Comparable<K>, V> {
     public void setValue(V value) {
         this.value = value;
     }
+    
+    public String toString(){
+    	return key.toString() + " " + value.toString();
+    }
 }
