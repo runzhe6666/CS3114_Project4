@@ -122,11 +122,11 @@ public class Handler {
      */
     public boolean removeArtist(String artist) {
     	//if artist doesn't exist in artist hash
-    	if (artistHash.getHandle(artist).getValue() == -1){
-    		return false;
-    	}
-    	Handle artistHandle = artistHash.getHandle(artist);
-    	
+//    	if (artistHash.getHandle(artist).getValue() == -1){
+//    		return false;
+//    	}
+//    	Handle artistHandle = artistHash.getHandle(artist);
+//    	
  //////////////////Zuri's code///////////////////////////////
     	//remove all artistSongRecord with this artist as key
     	
@@ -140,26 +140,26 @@ public class Handler {
 //       
     	
     	/////////////////////Sam's code////////////////////////
-//        Handle handle = artistHash.remove(artist);
-//        if (handle.getValue() < 0) {
-//            return false;
-//        }
-//        // We are going to assume that the artist exists from here out.
-//        IIPair temp = new IIPair(handle, new Handle(-1));
-//        IIPair result = artistSongTree.remove(temp); //PROBLEM
-//        while (result != null) {
-//            temp = new IIPair(result.getValue(), result.getKey());
-//            result = songArtistTree.remove(temp);
-//            temp.setValue(new Handle(-1));
-//            temp = songArtistTree.find(temp);
-//            if (temp == null) {
-//                songHash.remove(myDb.getValue(result.getKey()));
-//                myDb.remove(result.getKey());
-//            }
-//            temp = new IIPair(handle, new Handle(-1));
-//            result = artistSongTree.remove(temp);
-//        }
-//        myDb.remove(handle);
+        Handle handle = artistHash.remove(artist);
+        if (handle.getValue() < 0) {
+            return false;
+        }
+        // We are going to assume that the artist exists from here out.
+        IIPair temp = new IIPair(handle, new Handle(-1));
+        IIPair result = artistSongTree.remove(temp); //PROBLEM
+        while (result != null) {
+            temp = new IIPair(result.getValue(), result.getKey());
+            result = songArtistTree.remove(temp);
+            temp.setValue(new Handle(-1));
+            temp = songArtistTree.find(temp);
+            if (temp == null) {
+                songHash.remove(myDb.getValue(result.getKey()));
+                myDb.remove(result.getKey());
+            }
+            temp = new IIPair(handle, new Handle(-1));
+            result = artistSongTree.remove(temp);
+        }
+        myDb.remove(handle);
         return true;
     }
 
