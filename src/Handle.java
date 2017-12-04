@@ -20,4 +20,8 @@ public class Handle implements Comparable<Handle> {
         Integer b = new Integer(other.getValue());
         return a.compareTo(b);
     }
+    
+    public String toString(){
+    	return location + "";
+    }
 }

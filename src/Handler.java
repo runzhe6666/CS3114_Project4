@@ -122,9 +122,16 @@ public class Handler {
         if (artistHandle.getValue() == -1 || songHandle.getValue() == -1) {
             return false;
         }
-
+        
         IIPair artistSongPair = new IIPair(artistHandle, songHandle);
         IIPair songArtistPair = new IIPair(songHandle, artistHandle);
+        if (artistSongTree.find(artistSongPair) == null){
+        	return false;
+        }
+        if (songArtistTree.find(songArtistPair) == null){
+        	return false;
+        }
+        
         // remove from the artistSongTree
         artistSongTree.remove(artistSongPair);
         // remove from the songArtistTree

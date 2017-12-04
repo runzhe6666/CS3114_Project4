@@ -399,6 +399,9 @@ public class BST<T extends Comparable<? super T>> {
         public String toString(String indent) {
             StringBuilder builder = new StringBuilder();
             if (left != null) {
+            	//String leftStr = left.toString();
+            	//int handle = Integer.parseInt(leftStr);
+            	//BSTNode<String> handleNode = new BSTNode<String>(handle.toString());
                 builder.append(left.toString(indent + "  "));
             }
             builder.append(indent + element.toString() + "\n");

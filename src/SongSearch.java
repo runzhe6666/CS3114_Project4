@@ -92,51 +92,77 @@ public class SongSearch {
         }
 
         while (in.hasNextLine()) {
-            String cmd = in.next();
+        	
+            String cmdLine = in.nextLine();
+            System.out.println(cmdLine);
+            Scanner lineCmd = new Scanner(cmdLine);
+            String cmd = lineCmd.next();
             // The line starts with insert, so execute that command
             if (cmd.equals("insert")) {
-                String artistNSong = in.next();
+            	String artistNSong = "";
+            	while (lineCmd.hasNext()){
+            		artistNSong += lineCmd.next() + " ";
+            	}
+            	
+                //String artistNSong = lineCmd.next();
                 String[] inputArray = artistNSong.split("<SEP>");
-                String artist = inputArray[0];
-                String song = inputArray[1];
+                String artist = inputArray[0].trim();
+                String song = inputArray[1].trim();
                 myHandler.insert(artist, song);
             }
             // The line starts with remove, so execute that command
             else if (cmd.equals("remove")) {
-                String type = in.next();
+                String type = lineCmd.next();
+                String input = "";
+                while (lineCmd.hasNext()){
+                	input += lineCmd.next() + " ";
+                }
                 if (type.equals("song")) {
-                    myHandler.removeSong(in.next());
+                    myHandler.removeSong(input.trim());
                 }
                 else if (type.equals("artist")) {
-                    myHandler.removeArtist(in.next());
+                    myHandler.removeArtist(input.trim());
                 }
-            }
-            // The line starts with print tree, so execute that command
-            else if (cmd.equals("printTree")) {
-                myHandler.printTree();
             }
             // The line starts with list, so execute that command
             else if (cmd.equals("list")) {
-                String type = in.next();
+                String type = lineCmd.next();
+                String input = "";
+                while (lineCmd.hasNext()){
+                	input += lineCmd.next() + " ";
+                }
+                
                 if (type.equals("song")) {
-                    myHandler.listSong(in.next());
+                    myHandler.listSong(input.trim());
                 }
                 else if (type.equals("artist")) {
-                    myHandler.listArtist(in.next());
+                    myHandler.listArtist(input.trim());
                 }
             }
             // The line starts with delete, so execute that command
             else if (cmd.equals("delete")) {
-                String artistNSong = in.next();
+            	String artistNSong = "";
+            	while (lineCmd.hasNext()){
+            		artistNSong += lineCmd.next() + " ";
+            	}
+            	
+                //String artistNSong = lineCmd.next();
                 String[] inputArray = artistNSong.split("<SEP>");
-                String artist = inputArray[0];
-                String song = inputArray[1];
+                String artist = inputArray[0].trim();
+                String song = inputArray[1].trim();
                 myHandler.delete(artist, song);
             }
             // The line starts with print, so execute that command
             else if (cmd.equals("print")) {
-                String input = in.next();
-                System.out.println(myHandler.print(input));
+                String input = lineCmd.next();
+                if (input.equals("tree")){
+                	myHandler.printTree();
+                }
+                else{
+                	int totalNumOfEle = myHandler.print(input);
+                    System.out.println("Total number of " + input + "s : " + totalNumOfEle);
+                }
+                
 
             }
         }
