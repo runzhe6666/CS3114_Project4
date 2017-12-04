@@ -21,8 +21,8 @@ public class SongSearchTest extends student.TestCase {
     
     public void testMain() {
     	String[] mainArray = new String[3];
-    	mainArray[0] = "10";
-    	mainArray[1] = "10";
+    	mainArray[0] = "100";
+    	mainArray[1] = "100";
     	mainArray[2] = "SyntaxTest.txt";
         SongSearch.main(mainArray);
         assertNotNull(ss1.toString());
