@@ -95,7 +95,7 @@ public class Handler {
             total = artistHash.getNumElements();
         }
         else if (in.equals("song")) {
-            indices = new int[artistHash.getNumElements()];
+            indices = new int[songHash.getNumElements()];
             values = songHash.getAllElements(indices);
             for (int i = 0; i < values.length; i++) {
                 System.out.println("|" + values[i] + "| " + indices[i]);

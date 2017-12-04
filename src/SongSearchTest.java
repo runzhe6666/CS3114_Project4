@@ -52,6 +52,7 @@ public class SongSearchTest extends student.TestCase {
             assertTrue(mySongSearch.parseFile());
         }
         catch (Exception e) {
+            e.printStackTrace();
             a = false;
         }
         //Ensures that the fileparser ran to completion
