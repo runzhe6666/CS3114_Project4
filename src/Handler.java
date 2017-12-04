@@ -18,7 +18,7 @@ public class Handler {
         Handle artistHandle = new Handle(-1);
         Handle songHandle = new Handle(-1);
 
-        //if artist hash doesn't have artist
+        // if artist hash doesn't have artist
         if (artistHash.getHandle(artist).getValue() == -1) {
             artistHandle = myDb.addValue(artist);
             if (artistHash.add(artist, artistHandle) == 1) {
@@ -41,12 +41,12 @@ public class Handler {
         IIPair artistSongPair = new IIPair(artistHandle, songHandle);
         IIPair songArtistPair = new IIPair(songHandle, artistHandle);
 
-        if (artistSongTree.find(artistSongPair) == null && songArtistTree.find(songArtistPair) == null){ //not a duplicate
-        	artistSongTree.insert(artistSongPair);
-        	songArtistTree.insert(songArtistPair);
+        if (artistSongTree.find(artistSongPair) == null) { // not a duplicate
+            artistSongTree.insert(artistSongPair);
+            songArtistTree.insert(songArtistPair);
             return true;
         }
-    	return false;
+        return false;
     }
 
     public int print(String in) {
@@ -71,29 +71,16 @@ public class Handler {
         Handle artistHandle = artistHash.getHandle(artist);
         Handle songHandle = songHash.getHandle(song);
 
-        if (artistHandle.getValue() == -1) {
-            return false;
-        }
-        if (songHandle.getValue() == -1) {
+        if (artistHandle.getValue() == -1 || songHandle.getValue() == -1) {
             return false;
         }
 
         IIPair artistSongPair = new IIPair(artistHandle, songHandle);
         IIPair songArtistPair = new IIPair(songHandle, artistHandle);
         // remove from the artistSongTree
-        if (artistSongTree.find(artistSongPair) == null) {
-            return false;
-        }
-        else {
-            artistSongTree.remove(artistSongPair);
-        }
+        artistSongTree.remove(artistSongPair);
         // remove from the songArtistTree
-        if (songArtistTree.find(songArtistPair) == null) {
-            return false;
-        }
-        else {
-            songArtistTree.remove(songArtistPair);
-        }
+        songArtistTree.remove(songArtistPair);
 
         IIPair artistSongPair2 = new IIPair(artistHandle, new Handle(-1));
         IIPair songArtistPair2 = new IIPair(songHandle, new Handle(-1));
@@ -125,7 +112,7 @@ public class Handler {
         }
         // We are going to assume that the artist exists from here out.
         IIPair temp = new IIPair(handle, new Handle(-1));
-        IIPair result = artistSongTree.remove(temp); //PROBLEM
+        IIPair result = artistSongTree.remove(temp); // PROBLEM
         while (result != null) {
             temp = new IIPair(result.getValue(), result.getKey());
             result = songArtistTree.remove(temp);
@@ -197,11 +184,11 @@ public class Handler {
         }
         IIPair temp = new IIPair(aHandle, new Handle(-1));
         int i = 0;
-        Handle sHandle = artistSongTree.find(temp, i).getValue();
-        while (sHandle.getValue() >= 0) {
-            System.out.println("|" + myDb.getValue(sHandle) + "|");
+        IIPair sPair = artistSongTree.find(temp, i);
+        while (sPair != null) {
+            System.out.println("|" + myDb.getValue(sPair.getValue()) + "|");
             i++;
-            sHandle = artistSongTree.find(temp, i).getValue();
+            sPair = artistSongTree.find(temp, i);
         }
     }
 
@@ -218,15 +205,15 @@ public class Handler {
         }
         IIPair temp = new IIPair(sHandle, new Handle(-1));
         int i = 0;
-        Handle aHandle = songArtistTree.find(temp, i).getValue();
-        while (aHandle.getValue() >= 0) {
-            System.out.println("|" + myDb.getValue(aHandle) + "|");
+        IIPair aPair = songArtistTree.find(temp, i);
+        while (aPair != null) {
+            System.out.println("|" + myDb.getValue(aPair.getValue()) + "|");
             i++;
-            aHandle = songArtistTree.find(temp, i).getValue();
+            aPair = songArtistTree.find(temp, i);
         }
     }
-    
-    public void printTree(){
-    	System.out.println(artistSongTree.toString());
+
+    public void printTree() {
+        System.out.println(artistSongTree.toString());
     }
 }
