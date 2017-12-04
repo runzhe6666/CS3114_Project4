@@ -34,7 +34,7 @@ public class HashTable {
      *            The position in the database.
      */
     public int add(String value, Handle position) {
-    	int n = 0; //this tells me if hash table expanded in size
+        int n = 0; // this tells me if hash table expanded in size
         if (numElements + 1 > capacity / 2) {
             expandCapacity();
             n = 1;
@@ -141,7 +141,8 @@ public class HashTable {
         int target = h(newEntry.getKey(), size);
         int i = 0;
         // If the position is available, insert it there.
-        while (array[(target + (i * i)) % size] != null) {
+        while (array[(target + (i * i)) % size] != null
+                && !(array[(target + (i * i)) % size] instanceof Tombstone)) {
             i++;
         }
         array[(target + (i * i)) % size] = newEntry;
@@ -184,18 +185,16 @@ public class HashTable {
     public int getNumElements() {
         return numElements;
     }
-    
-    
-    
-    public String[] getAllElements(){
-    	String[] myStrArray = new String[numElements];
-    	int arrayIndex = 0;
-		for (int i = 0; i < capacity; i++) {
-			if (table[i] != null && !(table[i] instanceof Tombstone)) {
-				myStrArray[arrayIndex] = table[i].getKey();
-				arrayIndex++;
-			}
-		}
-		return myStrArray;
-    } 
+
+    public String[] getAllElements() {
+        String[] myStrArray = new String[numElements];
+        int arrayIndex = 0;
+        for (int i = 0; i < capacity; i++) {
+            if (table[i] != null && !(table[i] instanceof Tombstone)) {
+                myStrArray[arrayIndex] = table[i].getKey();
+                arrayIndex++;
+            }
+        }
+        return myStrArray;
+    }
 }
