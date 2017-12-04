@@ -186,12 +186,13 @@ public class HashTable {
         return numElements;
     }
 
-    public String[] getAllElements() {
+    public String[] getAllElements(int[] indices) {
         String[] myStrArray = new String[numElements];
         int arrayIndex = 0;
         for (int i = 0; i < capacity; i++) {
             if (table[i] != null && !(table[i] instanceof Tombstone)) {
                 myStrArray[arrayIndex] = table[i].getKey();
+                indices[arrayIndex] = i;
                 arrayIndex++;
             }
         }

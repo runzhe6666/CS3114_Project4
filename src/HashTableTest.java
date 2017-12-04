@@ -141,8 +141,8 @@ public class HashTableTest extends student.TestCase {
         table1.add(p3.getKey(), p3.getValue());
         table1.add(p4.getKey(), p4.getValue());
         table1.remove(p2.getKey());
-        
-        String[] contents = table1.getAllElements();
+        int[] temp = new int[10];
+        String[] contents = table1.getAllElements(temp);
         assertEquals(3, contents.length);
     }
 

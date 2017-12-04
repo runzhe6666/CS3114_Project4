@@ -1,4 +1,12 @@
-
+/**
+ * The handler that manages insertions, searches, prints, and deletions from all
+ * of the data structures in this project. Initialized with two capacities for
+ * the hash table and the database.
+ * 
+ * @author Samuel Turner <samt5>
+ * @version 2017.12.03
+ *
+ */
 public class Handler {
     private Database myDb;
     private HashTable artistHash;
@@ -6,6 +14,14 @@ public class Handler {
     private BST<IIPair> artistSongTree;
     private BST<IIPair> songArtistTree;
 
+    /**
+     * Initializes the Handler with a database, two hash tables, and two BSTs.
+     * 
+     * @param init_blockSize
+     *            The initial size of the database.
+     * @param init_capacity
+     *            The initial size of the hash table.
+     */
     public Handler(int init_blockSize, int init_capacity) {
         myDb = new Database(init_blockSize);
         artistHash = new HashTable(init_capacity);
@@ -14,6 +30,15 @@ public class Handler {
         songArtistTree = new BST<IIPair>();
     }
 
+    /**
+     * Inserts an artist, song pair into the database.
+     * 
+     * @param artist
+     *            The artist to place.
+     * @param song
+     *            The song to place.
+     * @return The insertion was successful.
+     */
     public boolean insert(String artist, String song) {
         Handle artistHandle = new Handle(-1);
         Handle songHandle = new Handle(-1);
@@ -49,17 +74,31 @@ public class Handler {
         return false;
     }
 
+    /**
+     * Prints either all artists or all songs based upon what is passed in.
+     * 
+     * @param in
+     *            Either "song" or "artist" based upon what type is trying to be
+     *            output.
+     * @return The number of that type that exists in the database.
+     */
     public int print(String in) {
         int total = 0;
+        int[] indices = null;
+        String[] values = new String[1];
         if (in.equals("artist")) {
-            for (String artist : artistHash.getAllElements()) {
-                System.out.println(artist);
+            indices = new int[artistHash.getNumElements()];
+            values = artistHash.getAllElements(indices);
+            for (int i = 0; i < values.length; i++) {
+                System.out.println("|" + values[i] + "| " + indices[i]);
             }
             total = artistHash.getNumElements();
         }
         else if (in.equals("song")) {
-            for (String song : songHash.getAllElements()) {
-                System.out.println(song);
+            indices = new int[artistHash.getNumElements()];
+            values = songHash.getAllElements(indices);
+            for (int i = 0; i < values.length; i++) {
+                System.out.println("|" + values[i] + "| " + indices[i]);
             }
             total = songHash.getNumElements();
         }
@@ -67,6 +106,15 @@ public class Handler {
         return total;
     }
 
+    /**
+     * Deletes the specified element from the entire database.
+     * 
+     * @param artist
+     *            The name artist to remove.
+     * @param song
+     *            The name of the song to remove.
+     * @return The deletion was successful.
+     */
     public boolean delete(String artist, String song) {
         Handle artistHandle = artistHash.getHandle(artist);
         Handle songHandle = songHash.getHandle(song);
@@ -183,12 +231,12 @@ public class Handler {
             return;
         }
         IIPair temp = new IIPair(aHandle, new Handle(-1));
-        int i = 0;
-        IIPair sPair = artistSongTree.find(temp, i);
-        while (sPair != null) {
-            System.out.println("|" + myDb.getValue(sPair.getValue()) + "|");
-            i++;
-            sPair = artistSongTree.find(temp, i);
+        BST<IIPair>.BSTIterator iterator = artistSongTree.new BSTIterator();
+        while (iterator.hasNext()) {
+            IIPair treeValue = iterator.next();
+            if (temp.compareTo(treeValue) == 0) {
+                System.out.println("|" + myDb.getValue(treeValue.getValue()) + "|");
+            }
         }
     }
 
@@ -204,15 +252,18 @@ public class Handler {
             return;
         }
         IIPair temp = new IIPair(sHandle, new Handle(-1));
-        int i = 0;
-        IIPair aPair = songArtistTree.find(temp, i);
-        while (aPair != null) {
-            System.out.println("|" + myDb.getValue(aPair.getValue()) + "|");
-            i++;
-            aPair = songArtistTree.find(temp, i);
+        BST<IIPair>.BSTIterator iterator = songArtistTree.new BSTIterator();
+        while (iterator.hasNext()) {
+            IIPair treeValue = iterator.next();
+            if (temp.compareTo(treeValue) == 0) {
+                System.out.println("|" + myDb.getValue(treeValue.getValue()) + "|");
+            }
         }
     }
 
+    /**
+     * Prints the artist tree to the console.
+     */
     public void printTree() {
         System.out.println(artistSongTree.toString());
     }
