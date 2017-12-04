@@ -94,7 +94,7 @@ public class SongSearch {
         while (in.hasNextLine()) {
         	
             String cmdLine = in.nextLine();
-            System.out.println(cmdLine);
+//            System.out.println(cmdLine);
             Scanner lineCmd = new Scanner(cmdLine);
             String cmd = lineCmd.next();
             // The line starts with insert, so execute that command
@@ -109,7 +109,7 @@ public class SongSearch {
                 String artist = inputArray[0].trim();
                 String song = inputArray[1].trim();
                 myHandler.insert(artist, song);
-                System.out.println();
+//                System.out.println();
             }
             // The line starts with remove, so execute that command
             else if (cmd.equals("remove")) {
@@ -124,7 +124,7 @@ public class SongSearch {
                 else if (type.equals("artist")) {
                     myHandler.removeArtist(input.trim());
                 }
-                System.out.println();
+//                System.out.println();
             }
             // The line starts with list, so execute that command
             else if (cmd.equals("list")) {
@@ -140,7 +140,7 @@ public class SongSearch {
                 else if (type.equals("artist")) {
                     myHandler.listArtist(input.trim());
                 }
-                System.out.println();
+//                System.out.println();
             }
             // The line starts with delete, so execute that command
             else if (cmd.equals("delete")) {
@@ -154,7 +154,7 @@ public class SongSearch {
                 String artist = inputArray[0].trim();
                 String song = inputArray[1].trim();
                 myHandler.delete(artist, song);
-                System.out.println();
+//                System.out.println();
             }
             // The line starts with print, so execute that command
             else if (cmd.equals("print")) {
@@ -167,7 +167,7 @@ public class SongSearch {
                     System.out.println("Total number of " + input + "s : " + totalNumOfEle);
                 }
                 
-                System.out.println();
+//                System.out.println();
             }
         }
         in.close();

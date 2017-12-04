@@ -35,7 +35,7 @@ public class SongSearchTest extends student.TestCase {
      * primary functionality works and doesn't check edge cases.
      */
     public void testParseFile() {
-        URL url = getClass().getResource("P4_Input1_Sample (1).txt");
+        URL url = getClass().getResource("P4_Input1_Sample_final.txt");
         File file = null;
         boolean a = true;
         try {

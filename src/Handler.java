@@ -99,14 +99,14 @@ public class Handler {
 			indices = new int[artistHash.getNumElements()];
 			values = artistHash.getAllElements(indices);
 			for (int i = 0; i < values.length; i++) {
-				System.out.println("|" + values[i] + "| ");
+				System.out.println("|" + values[i] + "| " + indices[i]);
 			}
 			total = artistHash.getNumElements();
 		} else if (in.equals("song")) {
 			indices = new int[songHash.getNumElements()];
 			values = songHash.getAllElements(indices);
 			for (int i = 0; i < values.length; i++) {
-				System.out.println("|" + values[i] + "| ");
+				System.out.println("|" + values[i] + "| " + indices[i]);
 			}
 			total = songHash.getNumElements();
 		}
