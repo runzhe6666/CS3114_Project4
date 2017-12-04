@@ -141,8 +141,7 @@ public class HashTable {
         int target = h(newEntry.getKey(), size);
         int i = 0;
         // If the position is available, insert it there.
-        while (array[(target + (i * i)) % size] != null
-                && !(array[(target + (i * i)) % size] instanceof Tombstone)) {
+        while (array[(target + (i * i)) % size] != null) {
             i++;
         }
         array[(target + (i * i)) % size] = newEntry;

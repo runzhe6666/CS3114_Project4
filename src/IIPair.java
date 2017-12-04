@@ -53,7 +53,7 @@ public class IIPair extends KVPair<Handle, Handle> implements Comparable<IIPair>
 	@Override
 	public int compareTo(IIPair o) {
 		int retVal = getKey().compareTo(o.getKey());
-		if (retVal == 0 && o.getValue().getValue() != -1) {
+		if (retVal == 0 && getValue().getValue() != -1 && o.getValue().getValue() != -1) {
 		    retVal = getValue().compareTo(o.getValue());
 		}
 		return retVal;

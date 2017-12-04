@@ -44,11 +44,9 @@ public class Handler {
         if (artistSongTree.find(artistSongPair) == null && songArtistTree.find(songArtistPair) == null){ //not a duplicate
         	artistSongTree.insert(artistSongPair);
         	songArtistTree.insert(songArtistPair);
+            return true;
         }
-        else{
-        	return false;
-        }
-        return true;
+    	return false;
     }
 
     public int print(String in) {
@@ -121,25 +119,6 @@ public class Handler {
      * @return The artist was removed successfully.
      */
     public boolean removeArtist(String artist) {
-    	//if artist doesn't exist in artist hash
-//    	if (artistHash.getHandle(artist).getValue() == -1){
-//    		return false;
-//    	}
-//    	Handle artistHandle = artistHash.getHandle(artist);
-//    	
- //////////////////Zuri's code///////////////////////////////
-    	//remove all artistSongRecord with this artist as key
-    	
-//    	IIPair artistSongPair2 = new IIPair(artistHandle, new Handle(-1));
-//        //IIPair songArtistPair2 = new IIPair(songHandle, new Handle(-1));
-//    	while(artistSongTree.find(artistSongPair2) != null) { // no more songs for
-//             artistSongTree.remove(artistSongTree.find(artistSongPair2));                                     // this artist
-//            //artistHash.remove(artist);
-//            //myDb.remove(artistHandle);
-//        }
-//       
-    	
-    	/////////////////////Sam's code////////////////////////
         Handle handle = artistHash.remove(artist);
         if (handle.getValue() < 0) {
             return false;
@@ -157,7 +136,12 @@ public class Handler {
                 myDb.remove(result.getKey());
             }
             temp = new IIPair(handle, new Handle(-1));
-            result = artistSongTree.remove(temp);
+            try {
+                result = artistSongTree.remove(temp);
+            }
+            catch (ItemNotFoundException e) {
+                result = null;
+            }
         }
         myDb.remove(handle);
         return true;
@@ -189,7 +173,12 @@ public class Handler {
                 myDb.remove(result.getKey());
             }
             temp = new IIPair(handle, new Handle(-1));
-            result = artistSongTree.remove(temp);
+            try {
+                result = songArtistTree.remove(temp);
+            }
+            catch (ItemNotFoundException e) {
+                result = null;
+            }
         }
         myDb.remove(handle);
         return true;
