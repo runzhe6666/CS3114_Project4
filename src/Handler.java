@@ -47,7 +47,7 @@ public class Handler {
         if (artistHash.getHandle(artist).getValue() == -1) {
             artistHandle = myDb.addValue(artist);
             if (artistHash.add(artist, artistHandle) == 1) {
-                System.out.println("artist hash table expanded in size");
+                //System.out.println("artist hash table expanded in size");
             }
             System.out.println("|" + artist + "| " + "is added to the Artist database");
         }
@@ -58,7 +58,7 @@ public class Handler {
         if (songHash.getHandle(song).getValue() == -1) {
             songHandle = myDb.addValue(song);
             if (songHash.add(song, songHandle) == 1) {
-                System.out.println("song has table expanded in size");
+                //System.out.println("song has table expanded in size");
             }
             System.out.println("|" + song + "| " + "is added to the Song database");
         }
@@ -73,8 +73,8 @@ public class Handler {
         if (artistSongTree.find(artistSongPair) == null) { // not a duplicate
             artistSongTree.insert(artistSongPair);
             songArtistTree.insert(songArtistPair);
-            System.out.println("The KVPair (|" + artist + "|,|" + song + "|), (" + artistHandle + ", " + songHandle + ") is added to the tree.");
-            System.out.println("The KVPair (|" + song + "|,|" + artist + "|), (" + songHandle + ", " + artistHandle + ") is added to the tree.");
+            System.out.println("The KVPair (|" + artist + "|,|" + song + "|), (" + artistHandle + "," + songHandle + ") is added to the tree.");
+            System.out.println("The KVPair (|" + song + "|,|" + artist + "|), (" + songHandle + "," + artistHandle + ") is added to the tree.");
             return true;
         }
         

@@ -59,7 +59,7 @@ public class Database {
         		newData[i] = data[i];
         	}
         	data = newData;
-        	System.out.println("memory pool expanded in size");
+        	//System.out.println("memory pool expanded in size");
         }
         
         data[size] = 1; //set record to active, flag = 1
