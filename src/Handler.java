@@ -49,22 +49,22 @@ public class Handler {
             if (artistHash.add(artist, artistHandle) == 1) {
                 //System.out.println("artist hash table expanded in size");
             }
-            System.out.println("|" + artist + "| " + "is added to the artist database.");
+            System.out.println("|" + artist + "| " + "is added to the Artist database.");
         }
         else {
             artistHandle = artistHash.getHandle(artist);
-            System.out.println("|" + artist + "| " + "duplicates a record already in the artist database.");
+            System.out.println("|" + artist + "| " + "duplicates a record already in the Artist database.");
         }
         if (songHash.getHandle(song).getValue() == -1) {
             songHandle = myDb.addValue(song);
             if (songHash.add(song, songHandle) == 1) {
                 //System.out.println("song has table expanded in size");
             }
-            System.out.println("|" + song + "| " + "is added to the song database.");
+            System.out.println("|" + song + "| " + "is added to the Song database.");
         }
         else {
             songHandle = songHash.getHandle(song);
-            System.out.println("|" + song + "| " + "duplicates a record already in the song database.");
+            System.out.println("|" + song + "| " + "duplicates a record already in the Song database.");
         }
 
         IIPair artistSongPair = new IIPair(artistHandle, songHandle);
@@ -73,8 +73,8 @@ public class Handler {
         if (artistSongTree.find(artistSongPair) == null) { // not a duplicate
             artistSongTree.insert(artistSongPair);
             songArtistTree.insert(songArtistPair);
-            System.out.println("The KVPair (|" + artist + "|,|" + song + "|), (" + artistHandle + "," + songHandle + ") is added to the tree.");
-            System.out.println("The KVPair (|" + song + "|,|" + artist + "|), (" + songHandle + "," + artistHandle + ") is added to the tree.");
+            System.out.println("The KVPair (|" + artist + "|,|" + song + "|),(" + artistHandle + "," + songHandle + ") is added to the tree.");
+            System.out.println("The KVPair (|" + song + "|,|" + artist + "|),(" + songHandle + "," + artistHandle + ") is added to the tree.");
             return true;
         }
         
@@ -165,7 +165,7 @@ public class Handler {
 															// for this song
 			songHash.remove(song);
 			myDb.remove(songHandle);
-			System.out.println("| " + song + "| is deleted from the song database.");
+			System.out.println("|" + song + "| is deleted from the song database.");
 			
 		}
 
@@ -180,12 +180,11 @@ public class Handler {
 	 * @return The artist was removed successfully.
 	 */
 	public boolean removeArtist(String artist) {
-		Handle handle = artistHash.remove(artist);
+		Handle handle = artistHash.getHandle(artist);
 		if (handle.getValue() < 0) {
 			System.out.println("|" + artist + "| does not exist in the artist database.");
 			return false;
 		}
-		System.out.println("|" + artist + "| is deleted from the artist database");
 		// We are going to assume that the artist exists from here out.
 		IIPair temp = new IIPair(handle, new Handle(-1));
 		IIPair result = artistSongTree.remove(temp); // PROBLEM
@@ -199,7 +198,7 @@ public class Handler {
 			if (temp == null) {
 				songHash.remove(myDb.getValue(result.getKey()));
 				myDb.remove(result.getKey());
-				System.out.println("|" + song + "| is deleted from the song database");
+				System.out.println("|" + song + "| is deleted from the Song database.");
 			}
 			temp = new IIPair(handle, new Handle(-1));
 			try {
@@ -209,6 +208,8 @@ public class Handler {
 				result = null;
 			}
 		}
+		artistHash.remove(artist);
+        System.out.println("|" + artist + "| is deleted from the Artist database.");
 		myDb.remove(handle);
 		return true;
 	}
@@ -221,12 +222,11 @@ public class Handler {
 	 * @return The song was removed successfully.
 	 */
 	public boolean removeSong(String song) {
-		Handle handle = songHash.remove(song);
+		Handle handle = songHash.getHandle(song);
 		if (handle.getValue() < 0) {
 			System.out.println("|" + song + "| does not exist in the song database.");
 			return false;
 		}
-		System.out.println("|" + song + "| is deleted from the song database");
 		// We are going to assume that the artist exists from here out.
 		IIPair temp = new IIPair(handle, new Handle(-1));
 		IIPair result = songArtistTree.remove(temp);
@@ -241,7 +241,7 @@ public class Handler {
 			if (temp == null) {
 				artistHash.remove(myDb.getValue(result.getKey()));
 				myDb.remove(result.getKey());
-				System.out.println("|" + artist + "| is deleted from the artist database");
+				System.out.println("|" + artist + "| is deleted from the Artist database.");
 			}
 			temp = new IIPair(handle, new Handle(-1));
 			try {
@@ -251,6 +251,8 @@ public class Handler {
 				result = null;
 			}
 		}
+		songHash.remove(song);
+        System.out.println("|" + song + "| is deleted from the Song database");
 		myDb.remove(handle);
 		return true;
 	}
@@ -264,7 +266,7 @@ public class Handler {
 	public void listArtist(String artist) {
 		Handle aHandle = artistHash.getHandle(artist);
 		if (aHandle.getValue() < 0) {
-			System.out.println(artist + " does not exist in the artist database.");
+			System.out.println("|" + artist + "| does not exist in the artist database.");
 			return;
 		}
 		IIPair temp = new IIPair(aHandle, new Handle(-1));
@@ -286,7 +288,7 @@ public class Handler {
 	public void listSong(String song) {
 		Handle sHandle = songHash.getHandle(song);
 		if (sHandle.getValue() < 0) {
-			System.out.println(song + " does not exist in the song database.");
+			System.out.println("|" + song + "| does not exist in the song database.");
 			return;
 		}
 		IIPair temp = new IIPair(sHandle, new Handle(-1));
@@ -303,7 +305,9 @@ public class Handler {
 	 * Prints the artist tree to the console.
 	 */
 	public void printTree() {
-		System.out.println("Printing BST:");
-		System.out.println(artistSongTree.toString());
+		System.out.println("Printing artist tree:");
+		System.out.print(artistSongTree.toString());
+		System.out.println("Printing song tree:");
+		System.out.print(songArtistTree.toString());
 	}
 }

@@ -164,7 +164,7 @@ public class SongSearch {
                 }
                 else{
                 	int totalNumOfEle = myHandler.print(input);
-                    System.out.println("Total number of " + input + "s : " + totalNumOfEle);
+                    System.out.println("total " + input + "s: " + totalNumOfEle);
                 }
                 
 //                System.out.println();
