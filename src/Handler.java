@@ -132,7 +132,7 @@ public class Handler {
 			return false;
 		}
 		if (songHandle.getValue() == -1){
-			System.out.println("|" + song + "| does not exist in the artist database.");
+			System.out.println("|" + song + "| does not exist in the song database.");
 			return false;
 		}
 
