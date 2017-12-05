@@ -35,7 +35,7 @@ public class HashTable {
      */
     public int add(String value, Handle position) {
         int n = 0; // this tells me if hash table expanded in size
-        if (numElements + 1 > capacity / 2) {
+        if (numElements > capacity / 2) {
             expandCapacity();
             n = 1;
         }

@@ -42,7 +42,7 @@ public class SongSearchTest extends student.TestCase {
             //The file wasn't found where it was supposed to be.
             System.out.println("The file is missing");
         }
-        SongSearch mySongSearch = new SongSearch(10, 10, file);
+        SongSearch mySongSearch = new SongSearch(100, 100, file);
         try {
             assertTrue(mySongSearch.parseFile());
         }
