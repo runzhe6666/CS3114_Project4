@@ -49,22 +49,22 @@ public class Handler {
             if (artistHash.add(artist, artistHandle) == 1) {
                 //System.out.println("artist hash table expanded in size");
             }
-            System.out.println("|" + artist + "| " + "is added to the Artist database");
+            System.out.println("|" + artist + "| " + "is added to the artist database.");
         }
         else {
             artistHandle = artistHash.getHandle(artist);
-            System.out.println("|" + artist + "| " + "duplicates a record already in the Artist database");
+            System.out.println("|" + artist + "| " + "duplicates a record already in the artist database.");
         }
         if (songHash.getHandle(song).getValue() == -1) {
             songHandle = myDb.addValue(song);
             if (songHash.add(song, songHandle) == 1) {
                 //System.out.println("song has table expanded in size");
             }
-            System.out.println("|" + song + "| " + "is added to the Song database");
+            System.out.println("|" + song + "| " + "is added to the song database.");
         }
         else {
             songHandle = songHash.getHandle(song);
-            System.out.println("|" + song + "| " + "duplicates a record already in the Song database");
+            System.out.println("|" + song + "| " + "duplicates a record already in the song database.");
         }
 
         IIPair artistSongPair = new IIPair(artistHandle, songHandle);
@@ -185,7 +185,7 @@ public class Handler {
 			System.out.println("|" + artist + "| does not exist in the artist database.");
 			return false;
 		}
-		System.out.println("|" + artist + "| is deleted from the Artist database");
+		System.out.println("|" + artist + "| is deleted from the artist database");
 		// We are going to assume that the artist exists from here out.
 		IIPair temp = new IIPair(handle, new Handle(-1));
 		IIPair result = artistSongTree.remove(temp); // PROBLEM
@@ -199,7 +199,7 @@ public class Handler {
 			if (temp == null) {
 				songHash.remove(myDb.getValue(result.getKey()));
 				myDb.remove(result.getKey());
-				System.out.println("|" + song + "| is deleted from the Song database");
+				System.out.println("|" + song + "| is deleted from the song database");
 			}
 			temp = new IIPair(handle, new Handle(-1));
 			try {
@@ -223,10 +223,10 @@ public class Handler {
 	public boolean removeSong(String song) {
 		Handle handle = songHash.remove(song);
 		if (handle.getValue() < 0) {
-			System.out.println("|" + song + "| does not exist in the Song database.");
+			System.out.println("|" + song + "| does not exist in the song database.");
 			return false;
 		}
-		System.out.println("|" + song + "| is deleted from the Song database");
+		System.out.println("|" + song + "| is deleted from the song database");
 		// We are going to assume that the artist exists from here out.
 		IIPair temp = new IIPair(handle, new Handle(-1));
 		IIPair result = songArtistTree.remove(temp);
@@ -241,7 +241,7 @@ public class Handler {
 			if (temp == null) {
 				artistHash.remove(myDb.getValue(result.getKey()));
 				myDb.remove(result.getKey());
-				System.out.println("|" + artist + "| is deleted from the Artist database");
+				System.out.println("|" + artist + "| is deleted from the artist database");
 			}
 			temp = new IIPair(handle, new Handle(-1));
 			try {
@@ -264,7 +264,7 @@ public class Handler {
 	public void listArtist(String artist) {
 		Handle aHandle = artistHash.getHandle(artist);
 		if (aHandle.getValue() < 0) {
-			System.out.println(artist + " does not exist in the Artist database.");
+			System.out.println(artist + " does not exist in the artist database.");
 			return;
 		}
 		IIPair temp = new IIPair(aHandle, new Handle(-1));
