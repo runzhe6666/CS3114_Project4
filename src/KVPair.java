@@ -16,8 +16,11 @@ public class KVPair<K extends Comparable<K>, V> {
 
     /**
      * Initializes this KVPair.
-     * @param initKey The initial value of the key.
-     * @param initVal The initial value of the value.
+     * 
+     * @param initKey
+     *            The initial value of the key.
+     * @param initVal
+     *            The initial value of the value.
      */
     public KVPair(K initKey, V initVal) {
         setKey(initKey);
@@ -26,6 +29,7 @@ public class KVPair<K extends Comparable<K>, V> {
 
     /**
      * Gets the stored key.
+     * 
      * @return the key
      */
     public K getKey() {
@@ -34,6 +38,7 @@ public class KVPair<K extends Comparable<K>, V> {
 
     /**
      * Sets the key.
+     * 
      * @param key
      *            the key to set
      */
@@ -43,6 +48,7 @@ public class KVPair<K extends Comparable<K>, V> {
 
     /**
      * Gets the stored value.
+     * 
      * @return the value
      */
     public V getValue() {
@@ -51,14 +57,19 @@ public class KVPair<K extends Comparable<K>, V> {
 
     /**
      * Sets the value.
+     * 
      * @param value
      *            the value to set
      */
     public void setValue(V value) {
         this.value = value;
     }
-    
-    public String toString(){
-    	return key.toString() + " " + value.toString();
+
+    /**
+     * Generates a string representation of this KVPair
+     * @return The string representation created.
+     */
+    public String toString() {
+        return "(" + key.toString() + "," + value.toString() + ")";
     }
 }
