@@ -127,10 +127,16 @@ public class Handler {
 		Handle artistHandle = artistHash.getHandle(artist);
 		Handle songHandle = songHash.getHandle(song);
 
-		if (artistHandle.getValue() == -1 || songHandle.getValue() == -1) {
+		if (artistHandle.getValue() == -1) {
+			System.out.println("|" + artist + "| does not exist in the artist database.");
+			return false;
+		}
+		if (songHandle.getValue() == -1){
+			System.out.println("|" + song + "| does not exist in the artist database.");
 			return false;
 		}
 
+		
 		IIPair artistSongPair = new IIPair(artistHandle, songHandle);
 		IIPair songArtistPair = new IIPair(songHandle, artistHandle);
 		if (artistSongTree.find(artistSongPair) == null) {
@@ -142,8 +148,10 @@ public class Handler {
 
 		// remove from the artistSongTree
 		artistSongTree.remove(artistSongPair);
+		System.out.println("The KVPair (|" + artist + "|,|" + song + "|) is deleted from the tree.");
 		// remove from the songArtistTree
 		songArtistTree.remove(songArtistPair);
+		System.out.println("The KVPair (|" + song + "|,|" + artist + "|) is deleted from the tree.");
 
 		IIPair artistSongPair2 = new IIPair(artistHandle, new Handle(-1));
 		IIPair songArtistPair2 = new IIPair(songHandle, new Handle(-1));
@@ -151,11 +159,14 @@ public class Handler {
 															// this artist
 			artistHash.remove(artist);
 			myDb.remove(artistHandle);
+			System.out.println( "|" + artist + "| is deleted from the artist database.");
 		}
 		if (songArtistTree.find(songArtistPair2) == null) { // no more artists
 															// for this song
 			songHash.remove(song);
 			myDb.remove(songHandle);
+			System.out.println("| " + song + "| is deleted from the song database.");
+			
 		}
 
 		return true;

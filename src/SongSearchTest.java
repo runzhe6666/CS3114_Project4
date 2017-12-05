@@ -1,11 +1,6 @@
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-
-/**
- * 
- */
-
 /**
  * Tests the song search class.
  * @author Samuel Turner <samt5>
