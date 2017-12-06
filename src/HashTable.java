@@ -32,6 +32,7 @@ public class HashTable {
      *            The string value to add.
      * @param position
      *            The position in the database.
+     * @return Returns 1 if expansion was necessary, 0 otherwise.
      */
     public int add(String value, Handle position) {
         int n = 0; // this tells me if hash table expanded in size
@@ -186,6 +187,13 @@ public class HashTable {
         return numElements;
     }
 
+    /**
+     * Creates a string array that contains all of the elements in this table.
+     * 
+     * @param indices
+     *            An initialized int[] with size at least equal to numElements
+     * @return The string that was generated.
+     */
     public String[] getAllElements(int[] indices) {
         String[] myStrArray = new String[numElements];
         int arrayIndex = 0;

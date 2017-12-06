@@ -399,9 +399,10 @@ public class BST<T extends Comparable<? super T>> {
         public String toString(String indent) {
             StringBuilder builder = new StringBuilder();
             if (left != null) {
-            	//String leftStr = left.toString();
-            	//int handle = Integer.parseInt(leftStr);
-            	//BSTNode<String> handleNode = new BSTNode<String>(handle.toString());
+                // String leftStr = left.toString();
+                // int handle = Integer.parseInt(leftStr);
+                // BSTNode<String> handleNode = new
+                // BSTNode<String>(handle.toString());
                 builder.append(left.toString(indent + "  "));
             }
             builder.append(indent + element.toString() + "\n");
@@ -500,11 +501,11 @@ public class BST<T extends Comparable<? super T>> {
             /**
              * The top node of the stack.
              */
-            public StackNode top;
+            private StackNode top;
             /**
              * The size of the stack.
              */
-            public int size;
+            private int size;
 
             /**
              * Constructor for this stack
@@ -561,8 +562,8 @@ public class BST<T extends Comparable<? super T>> {
         }
 
         private class StackNode {
-            protected BSTNode<T> value;
-            protected StackNode previous;
+            private BSTNode<T> value;
+            private StackNode previous;
 
             /**
              * The constructor for the stack node that initializes the node's

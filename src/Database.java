@@ -28,98 +28,109 @@ public class Database {
 
     /**
      * Adds a record into the database.
-     * @param value The value to add
+     * 
+     * @param value
+     *            The value to add
      * @return The position that the value was placed in the database.
      */
     public Handle addValue(String value) {
         int maxStringSize = 65536;
         Handle myHandle = new Handle(-1);
         byte[] valArray = value.getBytes();
-//        ByteBuffer.wrap(valArray).getInt()
+        // ByteBuffer.wrap(valArray).getInt()
         if (valArray.length > maxStringSize) {
             return myHandle;
         }
-        //put records into a new array with double capacity
-//        if ((size + valArray.length + 3) > capacity){ 
-//        	byte[] newData = new byte[capacity * 2];
-//        	for (int i = 0; i < size; i++){
-//        		newData[i] = data[i];
-//        	}
-//        	data = newData;
-//        	capacity += blockSize;
-//        	System.out.println("memory pool expanded in size");
-//        }
-        
-        while ((size + valArray.length + 3) > capacity){
-        	capacity += blockSize;
-        	byte[] newData = new byte[capacity];
-        	for(int i = 0; i < size; i++){
-        		newData[i] = data[i];
-        	}
-        	data = newData;
-        	//System.out.println("memory pool expanded in size");
+        // put records into a new array with double capacity
+        // if ((size + valArray.length + 3) > capacity){
+        // byte[] newData = new byte[capacity * 2];
+        // for (int i = 0; i < size; i++){
+        // newData[i] = data[i];
+        // }
+        // data = newData;
+        // capacity += blockSize;
+        // System.out.println("memory pool expanded in size");
+        // }
+
+        while ((size + valArray.length + 3) > capacity) {
+            capacity += blockSize;
+            byte[] newData = new byte[capacity];
+            for (int i = 0; i < size; i++) {
+                newData[i] = data[i];
+            }
+            data = newData;
+            // System.out.println("memory pool expanded in size");
         }
-        
-        data[size] = 1; //set record to active, flag = 1
-        data[size + 1] = (byte)(valArray.length >> 8);
-        data[size + 2] = (byte)(valArray.length & ((1 << 8) - 1));
-        
-        for (int i = 0; i < valArray.length; i++){
-        	data[size + 3 + i] = valArray[i];
+
+        data[size] = 1; // set record to active, flag = 1
+        data[size + 1] = (byte) (valArray.length >> 8);
+        data[size + 2] = (byte) (valArray.length & ((1 << 8) - 1));
+
+        for (int i = 0; i < valArray.length; i++) {
+            data[size + 3 + i] = valArray[i];
         }
-        
+
         myHandle.setValue(size);
-        //int recordPosition = size;
+        // int recordPosition = size;
         size = size + 3 + valArray.length;
-        return myHandle ;
+        return myHandle;
     }
 
     /**
      * Gets the string value of a record based upon the provided position in the
-     * array.
-     * Pre: position is a valid start of the record.
+     * array. Pre: position is a valid start of the record.
      * 
-     * @param position
-     *            The position of the record.
+     * @param handleIn
+     *            The handle of the record.
      * @return The record at the position.
      */
     public String getValue(Handle handleIn) {
-    	int position = handleIn.getValue();
-    	if (data[position] != 1){
-    		return "no record exists";
-    	}
-    	int len = data[position + 1] << 8 | data[position + 2];
-    	//put representing bytes into a new bytes array 
+        int position = handleIn.getValue();
+        if (data[position] != 1) {
+            return "no record exists";
+        }
+        int len = data[position + 1] << 8 | data[position + 2];
+        // put representing bytes into a new bytes array
         byte[] strArray = new byte[len];
         int startIndex = 0;
-        for (int i = position; i < len + position; i++){
-        	strArray[startIndex] = data[i + 3];
-        	startIndex++;
+        for (int i = position; i < len + position; i++) {
+            strArray[startIndex] = data[i + 3];
+            startIndex++;
         }
-        //convert bytes array into string
+        // convert bytes array into string
         String value = new String(strArray);
         return value;
     }
 
     /**
-     * Removes the record at the given position in the database.
-     * Performs this by flipping the active byte to zero.
-     * Pre: position is a valid start of a record.
+     * Removes the record at the given position in the database. Performs this
+     * by flipping the active byte to zero. Pre: position is a valid start of a
+     * record.
      * 
-     * @param position The position of the record
+     * @param handleIn
+     *            The handle of the record
      */
     public void remove(Handle handleIn) {
-    	int position = handleIn.getValue();
+        int position = handleIn.getValue();
         data[position] = 0;
     }
-    
-    public int getSize(){
-    	return size;
+
+    /**
+     * Gets the size of the database.
+     * 
+     * @return The size of the database.
+     */
+    public int getSize() {
+        return size;
     }
-    
-    public int getCapacity(){
-    	return capacity;
+
+    /**
+     * Gets the current capacity of the database.
+     * 
+     * @return The capacity of this database.
+     */
+    public int getCapacity() {
+        return capacity;
     }
-    
 
 }

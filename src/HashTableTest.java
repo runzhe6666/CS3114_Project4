@@ -134,7 +134,10 @@ public class HashTableTest extends student.TestCase {
         assertEquals(0,
                 table1.getHandle("Doesn't exist").compareTo(new Handle(-1)));
     }
-    
+
+    /**
+     * Tests the getAllElements function of HashTable.
+     */
     public void testGetAllElements() {
         table1.add(p1.getKey(), p1.getValue());
         table1.add(p2.getKey(), p2.getValue());

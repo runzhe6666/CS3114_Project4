@@ -46,6 +46,7 @@ public class Handler {
         // if artist hash doesn't have artist
         if (artistHash.getHandle(artist).getValue() == -1) {
             artistHandle = myDb.addValue(artist);
+            artistHash.add(artist, artistHandle);
             System.out.println(
                     "|" + artist + "| " + "is added to the Artist database.");
         }
@@ -56,6 +57,7 @@ public class Handler {
         }
         if (songHash.getHandle(song).getValue() == -1) {
             songHandle = myDb.addValue(song);
+            songHash.add(song, songHandle);
             System.out.println(
                     "|" + song + "| " + "is added to the Song database.");
         }
@@ -154,15 +156,15 @@ public class Handler {
             return false;
         }
 
-        // remove from the artistSongTree
-        artistSongTree.remove(artistSongPair);
-        System.out.println("The KVPair (|" + artist + "|,|" + song
-                + "|) is deleted from the tree.");
         // remove from the songArtistTree
         songArtistTree.remove(songArtistPair);
         System.out.println("The KVPair (|" + song + "|,|" + artist
                 + "|) is deleted from the tree.");
-
+        // remove from the artistSongTree
+        artistSongTree.remove(artistSongPair);
+        System.out.println("The KVPair (|" + artist + "|,|" + song
+                + "|) is deleted from the tree.");
+        
         IIPair artistSongPair2 = new IIPair(artistHandle, new Handle(-1));
         IIPair songArtistPair2 = new IIPair(songHandle, new Handle(-1));
         if (artistSongTree.find(artistSongPair2) == null) { // no more songs for

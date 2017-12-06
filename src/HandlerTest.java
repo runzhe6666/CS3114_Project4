@@ -2,8 +2,8 @@
  * This class test all methods in Handler class which will be used in the
  * songSearch class
  * 
- * @author Zuri
- *
+ * @author Zuri Wong <zuriw>
+ * @version 2017.12.04
  */
 public class HandlerTest extends student.TestCase {
     private Handler myHandler;
@@ -37,7 +37,10 @@ public class HandlerTest extends student.TestCase {
         assertTrue(myHandler.insert("F1", "F2"));
         assertTrue(myHandler.insert("G1", "G2"));
     }
-    
+
+    /**
+     * Tests the functionality of delete for the whole database.
+     */
     public void testDelete() {
         assertTrue(myHandler.insert("A1", "A2"));
         assertTrue(myHandler.insert("B1", "B2"));
@@ -69,6 +72,9 @@ public class HandlerTest extends student.TestCase {
         assertEquals(myHandler.print("garbage"), 0);
     }
 
+    /**
+     * Tests the functionality of removal for an artist.
+     */
     public void testRemoveArtist() {
         myHandler.insert("Blind Lemon Jefferson", "Long Lonesome Blues");
         myHandler.insert("Blind Lemon Jefferson", "Long Lonesome Blues");
@@ -84,6 +90,9 @@ public class HandlerTest extends student.TestCase {
         assertTrue(myHandler.removeArtist("Blind Lemon Jefferson"));
     }
 
+    /**
+     * Tests the functionality of removal for a song.
+     */
     public void testRemoveSong() {
         myHandler.insert("Blind Lemon Jefferson", "Long Lonesome Blues");
         myHandler.insert("Blind Lemon Jefferson", "Long Lonesome Blues");
@@ -105,8 +114,10 @@ public class HandlerTest extends student.TestCase {
      * through the console, these are checked manually with an expected output.
      */
     public void testListArtist() {
-        KVPair<String, String> song1 = new KVPair<>("21 Pilots", "Guns for Hands");
-        KVPair<String, String> song2 = new KVPair<>("21 Pilots", "House of Gold");
+        KVPair<String, String> song1 = new KVPair<>("21 Pilots",
+                "Guns for Hands");
+        KVPair<String, String> song2 = new KVPair<>("21 Pilots",
+                "House of Gold");
         KVPair<String, String> song3 = new KVPair<>("Flobots", "Handlebars");
         myHandler.listArtist(song1.getKey());
         assertFalse(myHandler.removeArtist(song1.getKey()));
@@ -117,14 +128,16 @@ public class HandlerTest extends student.TestCase {
         assertTrue(myHandler.removeArtist(song1.getKey()));
         myHandler.printTree();
     }
-    
+
     /**
-     * Tests the listSong function. Because these outputs are purely run
-     * through the console, these are checked manually with an expected output.
+     * Tests the listSong function. Because these outputs are purely run through
+     * the console, these are checked manually with an expected output.
      */
     public void testListSong() {
-        KVPair<String, String> song1 = new KVPair<>("21 Pilots", "Guns for Hands");
-        KVPair<String, String> song2 = new KVPair<>("21 Pilots", "House of Gold");
+        KVPair<String, String> song1 = new KVPair<>("21 Pilots",
+                "Guns for Hands");
+        KVPair<String, String> song2 = new KVPair<>("21 Pilots",
+                "House of Gold");
         KVPair<String, String> song3 = new KVPair<>("Flobots", "House of Gold");
         myHandler.listSong(song1.getKey());
         assertFalse(myHandler.removeSong(song1.getKey()));
