@@ -20,8 +20,8 @@ public class HashTableTest extends student.TestCase {
      * Initializes the testing environment with two tables and multiple SIPairs.
      */
     public void setUp() {
-        table1 = new HashTable(10);
-        table2 = new HashTable(6);
+        table1 = new HashTable(9);
+        table2 = new HashTable(5);
         p1 = new SIPair("a", new Handle(10));
         p2 = new SIPair("e", new Handle(15));
         p3 = new SIPair("i", new Handle(0));
@@ -36,17 +36,17 @@ public class HashTableTest extends student.TestCase {
      */
     public void testAdd() {
         table1.add(p1.getKey(), p1.getValue());
-        assertEquals(10, table1.getCapacity());
+        assertEquals(9, table1.getCapacity());
         assertEquals(1, table1.getNumElements());
         table1.add(p2.getKey(), p2.getValue());
         table1.add(p3.getKey(), p3.getValue());
         table1.add(p4.getKey(), p4.getValue());
         p5.setKey("l");
         table1.add(p5.getKey(), p5.getValue());
-        assertEquals(10, table1.getCapacity());
+        assertEquals(9, table1.getCapacity());
         assertEquals(5, table1.getNumElements());
         table1.add(p6.getKey(), p6.getValue());
-        assertEquals(20, table1.getCapacity());
+        assertEquals(18, table1.getCapacity());
         assertEquals(6, table1.getNumElements());
 
         // Check that the values are all copied correctly.
@@ -83,7 +83,7 @@ public class HashTableTest extends student.TestCase {
         table2.add(p4.getKey(), p4.getValue());
         table2.add(p5.getKey(), p5.getValue());
         assertEquals(4, table2.getNumElements());
-        assertEquals(12, table2.getCapacity());
+        assertEquals(10, table2.getCapacity());
     }
 
     /**
@@ -106,7 +106,7 @@ public class HashTableTest extends student.TestCase {
         table2.add(p5.getKey(), p5.getValue());
 
         assertEquals(5, table2.getNumElements());
-        assertEquals(12, table2.getCapacity());
+        assertEquals(10, table2.getCapacity());
         p7.setKey(genCollision('a', 16, 1));
         table2.add(p7.getKey(), p7.getValue());
 

@@ -169,6 +169,7 @@ public class SongSearch {
                 
 //                System.out.println();
             }
+            lineCmd.close();
         }
         in.close();
         return true;
