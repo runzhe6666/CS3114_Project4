@@ -150,21 +150,22 @@ public class Handler {
         IIPair artistSongPair = new IIPair(artistHandle, songHandle);
         IIPair songArtistPair = new IIPair(songHandle, artistHandle);
         if (artistSongTree.find(artistSongPair) == null) {
-            return false;
-        }
-        if (songArtistTree.find(songArtistPair) == null) {
+        	System.out.println("The KVPair (|" + artist + "|,|" + song
+                + "|) was not found in the database.");
+        	System.out.println("The KVPair (|" + song + "|,|" + artist
+                    + "|) was not found in the database.");
             return false;
         }
 
-        // remove from the songArtistTree
-        songArtistTree.remove(songArtistPair);
-        System.out.println("The KVPair (|" + song + "|,|" + artist
-                + "|) is deleted from the tree.");
+       
         // remove from the artistSongTree
         artistSongTree.remove(artistSongPair);
         System.out.println("The KVPair (|" + artist + "|,|" + song
                 + "|) is deleted from the tree.");
-        
+        // remove from the songArtistTree
+        songArtistTree.remove(songArtistPair);
+        System.out.println("The KVPair (|" + song + "|,|" + artist
+                + "|) is deleted from the tree.");
         IIPair artistSongPair2 = new IIPair(artistHandle, new Handle(-1));
         IIPair songArtistPair2 = new IIPair(songHandle, new Handle(-1));
         if (artistSongTree.find(artistSongPair2) == null) { // no more songs for
