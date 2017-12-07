@@ -28,8 +28,12 @@ public class DatabaseTest extends student.TestCase {
         // System.out.println(strLen);
         assertEquals(myDb.addValue("sam").getValue(), strLen + 3);
         assertEquals(myDb.getCapacity(), 20);
-
-        // myDb.addValue("Blind Lemon Jefferson");
+        StringBuilder strBuild = new StringBuilder();
+        for (int i = 0; i < 65537; i++){
+        	strBuild.append("a");
+        }
+        assertEquals(myDb.addValue(strBuild.toString()).getValue(),-1);
+        
 
     }
 
