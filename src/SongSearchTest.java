@@ -27,6 +27,9 @@ public class SongSearchTest extends student.TestCase {
         mainArray[2] = "SyntaxTest.txt";
         SongSearch.main(mainArray);
         assertNotNull(ss1.toString());
+        SongSearch.main(null);
+        String[] temp = {"1", "2"};
+        SongSearch.main(temp);
     }
 
     /**
@@ -50,6 +53,11 @@ public class SongSearchTest extends student.TestCase {
         }
         // Ensures that the fileparser ran to completion
         assertNull(e);
+        file = new File("Doesn'tExist.jpg");
+        mySongSearch = new SongSearch(100, 100, file);
+        assertFalse(mySongSearch.parseFile());
+        mySongSearch = new SongSearch(100, 100, null);
+        assertFalse(mySongSearch.parseFile());
     }
 
 }

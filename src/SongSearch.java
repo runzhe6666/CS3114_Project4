@@ -44,6 +44,7 @@ public class SongSearch {
     public static void main(String[] args) {
         if (args == null || args.length != 3) {
             System.out.println("Incorrect number of arguments");
+            return;
         }
         int hashSize = Integer.parseInt(args[0]);
         int blockSize = Integer.parseInt(args[1]);
@@ -77,7 +78,7 @@ public class SongSearch {
      * @return The parsing was successful.
      */
     public boolean parseFile() {
-        if (myFile == null || !myFile.exists()) {
+        if (myFile == null) {
             return false;
         }
         Scanner in = null;

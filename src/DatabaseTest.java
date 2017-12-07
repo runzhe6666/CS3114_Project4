@@ -29,11 +29,10 @@ public class DatabaseTest extends student.TestCase {
         assertEquals(myDb.addValue("sam").getValue(), strLen + 3);
         assertEquals(myDb.getCapacity(), 20);
         StringBuilder strBuild = new StringBuilder();
-        for (int i = 0; i < 65537; i++){
-        	strBuild.append("a");
+        for (int i = 0; i < 65537; i++) {
+            strBuild.append("a");
         }
-        assertEquals(myDb.addValue(strBuild.toString()).getValue(),-1);
-        
+        assertEquals(myDb.addValue(strBuild.toString()).getValue(), -1);
 
     }
 

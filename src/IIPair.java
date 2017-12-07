@@ -69,7 +69,7 @@ public class IIPair extends KVPair<Handle, Handle>
      * @return
      */
     @Override
-    public int compareTo(IIPair o) { //&& o.getValue().getValue() != -1
+    public int compareTo(IIPair o) { // && o.getValue().getValue() != -1
         int retVal = getKey().compareTo(o.getKey());
         if (retVal == 0 && getValue().getValue() != -1) {
             retVal = getValue().compareTo(o.getValue());

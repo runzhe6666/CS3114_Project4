@@ -471,3 +471,7 @@ remove artist themselves
 remove song Crayon Sharpener
 print song
 print artist
+failure
+haha
+remove garbage
+list garbage
